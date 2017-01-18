@@ -27,7 +27,7 @@ function move(dir,cam) {
 	alert(command);
 	/*var window = window.open(command, 'name', 'height=100,width=100');*/
 
-	return false:
+	return false;
 }
 /* window.onload = function(){
 	var link = document.getElementById("up4");
