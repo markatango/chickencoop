@@ -1,0 +1,90 @@
+<html>
+<head>
+	<title>Chickens</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="clock.js"></script>
+
+        <link href="ccoop.css" rel="stylesheet" type="text/css" />
+	<script src="ccoop.js" type="text/javascript"></script>
+	<script type="text/javascript">img=new Image();img.src= "http://images.webestools.com/buttons.php?frm=2&btn_type=12&txt=up4";</script>
+	
+	
+	<style>
+		.b4panel_text
+		{
+			heigth:30px;
+		}
+	</style>
+
+</head>
+
+<body>
+<h1>Chicken Coop Door Controller</h1>
+<div>
+<input type="button" value="Open" id="open">
+<input type="button" value="Close" id="close">
+<input type="button" value="Report" id="report">
+</div>
+<h1 id='openInd'>Door Status</h1>
+<h1 id='clock'>CLOCK</h1>
+<h1 id='reportshow'>report</h1>
+  <!--<div id="title"><span id="hello">&nbsp;</span><h1 style="color:blue;text-align:center">Chicken Coop Control Panel</h1></div>-->
+ 
+<div id="container">
+	<div id="title"><span id="hello">&nbsp;</span><h1 style="color:blue;text-align:center"></h1></div>
+	<div class="campanel" style="position:absolute;left:0px">
+	
+		<div class="videoscreen">
+			<img class="vs" alt="" src="http://atango.dyndns-server.com:9001/videostream.cgi?user=guest&pwd=">
+		</div>
+		<div class="b4panel" style="position:absolute">
+			<h2 class="b4panel_text">Camera controls</h2>
+		
+			<div id="bbox">
+			
+				<a id="bup" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=2&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Up'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up';" alt="Up" /></a>
+				
+				<a id="bdn" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=0&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Down'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down';" alt="Down" /></a>
+				
+				<a id="blf" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=6&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Left'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left';" alt="Left" /></a>
+				
+				<a id="brt" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=4&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Right'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right';" alt="Right" /></a>
+				
+				<iframe name="bres" width="1" height="1"></iframe>
+			</div>
+			
+		</div>
+	</div>
+	<div class="campanel" style="position:absolute; right:0px">
+		<div class="videoscreen">
+			<img class="vs" alt="" src="http://atango.dyndns-server.com:9002/videostream.cgi?user=guest&pwd=">
+		</div>
+		<div class="b4panel" style="position:absolute">
+			<h2 class="b4panel_text">Camera controls</h2>
+			
+			<div id="bbox">
+			
+				<a id="bup" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=0&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Up'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up';" alt="Up" /></a>
+				
+				<a id="bdn" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=2&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Down'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down';" alt="Down" /></a>
+				
+				<a id="blf" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=4&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Left'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left';" alt="Left" /></a>
+				
+				<a id="brt" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=6&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Right'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right';" alt="Right" /></a>
+				
+				<iframe name="bres2" width="1" height="1"></iframe>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<script src="pagecontroller.js"></script>
+<script src="pagecontroller.js"></script>
+<script src="pagecontroller.js"></script>
+    
+</body>
+
+
+
+</html>

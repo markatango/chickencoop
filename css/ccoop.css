@@ -1,0 +1,200 @@
+#container
+{
+	position:absolute;
+	width:1200px;
+	height:825px;
+	border:2px solid #777777;
+}
+.campanel
+{
+	top:100px;
+	width:600px;
+	height:825px;
+}
+.videoscreen
+{
+	position:absolute;
+	width:500px;
+	height:375px;
+	left:0px;
+	top:0px;
+	border:10px solid #EE872A;
+	padding:30px;
+	margin:10px;
+}
+.cam
+{
+	float:right;
+	border:5px solid #EE872A;
+	padding:10px;
+	margin:5px;
+	width:500px;
+	height:375px;
+}
+.b4panel
+{
+	float:right;
+	top:475px;
+	width:598px;
+	height:250px;
+	border:2px solid #EE872A;
+}
+.b4panel_text
+{
+	text-align:center;
+}
+.camMove
+{
+	
+}
+ul.blist
+{
+	width:100;
+	height:60;
+}
+il.blist
+{
+	margin:4px;
+	border:2px solid #EEEEEE;
+	padding:2px;
+	height:30px;
+	width:100px;
+}
+
+#bbox{
+	margin-left:auto; 
+	margin-right:auto;
+	width:70%;
+}
+
+#bup{
+	position:absolute;
+	left:270px;
+	top:60px;
+}
+#bdn{
+	position:absolute;
+	left:255px;
+	bottom:50px;
+}
+#blf{
+	position:absolute;
+	left:200px;
+	top:110px;
+}
+#brt{
+	position:absolute;
+	right:200px;
+	top:110px;
+}
+.button-link 
+{
+    height:60px;
+    padding: 10px 15px;
+    background: #4479BA;
+    color: #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #20538D;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.button-link:hover {
+    background: #356094;
+    border: solid 1px #2A4E77;
+    text-decoration: none;
+}
+
+    
+
+
+
+button
+{
+	position:absolute;
+	border:1px;
+	width:99px;
+	height:60px;
+}
+button#up4 a#up4
+{
+	
+	top:25px;
+	left:150px;
+}
+
+button#down4
+{
+	
+	bottom:25px;
+	left:150px;
+}
+button#left4
+{
+	
+	top:110px;
+	left:25px;
+}
+button#right4
+{
+	
+	top:110px;
+	right:25px;
+}
+#cpanel
+{
+	float:left;
+	border:10px solid #EE872A;
+	padding:20px;
+	margin:10px;
+	width:800px;
+	height:850px;
+}
+.vs
+{
+	width:500px;
+	height:375px;
+}
+
+.cpanel
+{
+	position:absolute;
+	left:1px;
+	top:1px;
+	width:475px;
+	height:825px;
+	
+}
+#leftcam
+{
+	position:absolute;
+	width:660px;
+	height:1000px;
+	left:0px;
+	top:0px;
+}
+#rightcam
+{
+	position:absolute;
+	width:660px;
+	height:1000px;
+	left:670px;
+	top:0px;
+	
+}
+
+
+.bcontainer
+{
+	border:0px;
+	margin:0px;
+	padding:0px;
+	width:475px;;
+	height:350px;
+	
+}
+	
+	
