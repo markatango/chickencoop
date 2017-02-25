@@ -47,7 +47,7 @@ module.exports = function(db){
     require('../app/routes/button.server.routes.js')(app, io);
 
 
-    app.use(express.static(path.join( __dirname, '../node_modules/socket.io/node_modules/socket.io-client/dist')));
+    //app.use(express.static(path.join( __dirname, '../node_modules/socket.io/node_modules/socket.io-client/dist')));
     app.use(express.static(path.join( __dirname, '../public/assets/js')));
     app.use(express.static(path.join( __dirname, '../images')));
     app.use(express.static(path.join( __dirname, '../public/assets/css')));
