@@ -1,18 +1,14 @@
-var express = require('express');
-var morgan = require('morgan');
-var bodyparser = require('body-parser');
-var path = require('path');
-var app = express();
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_SERVER_PORT = process.env.NODE_SERVER_PORT || 3000;
 
-require('./routes/button.server.routes.js')(app);
+var mongoose = require('./config/mongoose');
+    express  = require('./config/express');
 
-app.use(express.static(path.join( __dirname, 'js')));
-app.use(express.static(path.join( __dirname, 'images')));
-app.use(express.static(path.join( __dirname, 'css')));
-app.use(express.static(path.join( __dirname, '/public/views')));
+var db  = mongoose();
+var app = express(db);
 
+app.listen(process.env.NODE_SERVER_PORT);
 
-app.listen(3000, function(){
-	console.log('Listening on port 3000...');
-});
+console.log('Listening on port ' + process.env.NODE_SERVER_PORT + '...');
+
 

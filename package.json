@@ -1,7 +1,7 @@
 {
   "name": "chickencoop",
   "version": "0.0.0",
-  "license": "GPL-3.0,
+  "license": "GPL-3.0",
   "repository": "https://github.com/markatango/chickencoop",
   "private": true,
   "scripts": {
@@ -9,14 +9,18 @@
   },
   "dependencies": {
     "body-parser": "~1.15.2",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.1",
     "debug": "~2.2.0",
     "ejs": "^1.0.0",
     "express": "~4.14.0",
     "express-session": "^1.7.6",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.8.4",
     "morgan": "~1.7.0",
     "pug": "^2.0.0-beta6",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "socket.io": "^1.7.2"
   }
 }

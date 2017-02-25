@@ -1,86 +1,234 @@
-<html>
-<head>
-	<title>Chickens</title>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="clock.js"></script>
 
-        <link href="ccoop.css" rel="stylesheet" type="text/css" />
-	<script src="ccoop.js" type="text/javascript"></script>
-	<script type="text/javascript">img=new Image();img.src= "http://images.webestools.com/buttons.php?frm=2&btn_type=12&txt=up4";</script>
-	
-	
-	<style>
-		.b4panel_text
-		{
-			heigth:30px;
-		}
-	</style>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-</head>
+    <link rel="icon" href="../../favicon.ico">
 
-<body>
-<h1>Chicken Coop Door Controller</h1>
-<div>
-<input type="button" value="Open" id="open">
-<input type="button" value="Close" id="close">
-<input type="button" value="Report" id="report">
-</div>
-<h1 id='openInd'>Door Status</h1>
-<h1 id='clock'>CLOCK</h1>
-<h1 id='reportshow'>report</h1>
-  <!--<div id="title"><span id="hello">&nbsp;</span><h1 style="color:blue;text-align:center">Chicken Coop Control Panel</h1></div>-->
- 
-<div id="container">
-	<div id="title"><span id="hello">&nbsp;</span><h1 style="color:blue;text-align:center"></h1></div>
-	<div class="campanel" style="position:absolute;left:0px">
-	
-		<div class="videoscreen">
-			<img class="vs" alt="" src="http://atango.dyndns-server.com:9001/videostream.cgi?user=guest&pwd=">
-		</div>
-		<div class="b4panel" style="position:absolute">
-			<h2 class="b4panel_text">Camera controls</h2>
-		
-			<div id="bbox">
-			
-				<a id="bup" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=2&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Up'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up';" alt="Up" /></a>
-				
-				<a id="bdn" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=0&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Down'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down';" alt="Down" /></a>
-				
-				<a id="blf" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=6&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Left'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left';" alt="Left" /></a>
-				
-				<a id="brt" href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=4&onestep=5&user=guest&pwd="  target="bres"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Right'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right';" alt="Right" /></a>
-				
-				<iframe name="bres" width="1" height="1"></iframe>
-			</div>
-			
-		</div>
-	</div>
-	<div class="campanel" style="position:absolute; right:0px">
-		<div class="videoscreen">
-			<img class="vs" alt="" src="http://atango.dyndns-server.com:9002/videostream.cgi?user=guest&pwd=">
-		</div>
-		<div class="b4panel" style="position:absolute">
-			<h2 class="b4panel_text">Camera controls</h2>
-			
-			<div id="bbox">
-			
-				<a id="bup" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=0&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Up'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Up';" alt="Up" /></a>
-				
-				<a id="bdn" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=2&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Down'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Down';" alt="Down" /></a>
-				
-				<a id="blf" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=4&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Left'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Left';" alt="Left" /></a>
-				
-				<a id="brt" href="http://atango.dyndns-server.com:9002/decoder_control.cgi?command=6&onestep=5&user=guest&pwd="  target="bres2"><img style="border:0px;" src="http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right" onmouseover="this.src='http://images.webestools.com/buttons.php?frm=2&btn_type=31&txt=Right'" onmouseout="this.src='http://images.webestools.com/buttons.php?frm=1&btn_type=31&txt=Right';" alt="Right" /></a>
-				
-				<iframe name="bres2" width="1" height="1"></iframe>
-			</div>
-			
-		</div>
-	</div>
-</div>
+    <!-- Date picker font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="bootstrap-material-datetimepicker.css" rel="stylesheet">
 
-<script src="pagecontroller.js"></script>
+    <title>Chicken coop controller</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
     
-</body>
 
+    <!-- Begin page content -->
+    <div class="container">
+	<div class="row>
+		<div class="col-md-12 well">
+			<h1 style="text-align: center;">Rodighiero Chicken Coop Control System</h1>
+		</div>
+	</div>
+      	<div class="row">
+		<div class="col-md-12">
+			<div id="doorsandlights" class="col-md-4">
+				<div class="row">
+					<h3 style="text-align: center;">Doors and Lights</h3>
+				<div class="well">
+					<h1 style="text-align: center;" id='clock'>CLOCK</h1>
+				</div>
+				</div>
+				<div class="row">
+					<div class="well">
+						<h4 style="text-align: center;">Automatic Operation</h4>
+							<div class="row">
+								<div class="col-md-6">
+									<h4 style="text-align: right;">Door open</h4>
+								</div>
+								<div class="col-md-6">
+									<label>
+										<input type="text" id="dooropentime" placeholder="Door open time">
+									</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<h4 style="text-align: right;">Door close</h4>
+								</div>
+								<div class="col-md-6">
+									<label>
+										<input type="text" id="doorclosetime" placeholder="Door open time">
+									</label>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="well">
+						<h4 style="text-align: center;">Manual Operation</h4>
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-4">
+									<input type="button" value="Open" id="open">
+									<input type="button" value="Close" id="close">	
+								</div>			
+								<div class="col-md-1"></div>
+								<div class="col-md-4">
+									<h4>Door Limits</h4>
+									<label for="ULS">Upper</label>
+									<input type="radio" id="ULS" name="switches" value="ULS">
+									<label for="LLS">Lower</label>	
+									<input type="radio" id="ULS" name="switches" value="LLS">
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+							<div class="row"></div>
+					</div>
+				</div>
+							<div class="row">
+								<div class="well">
+									<h1 id="doorStateMsg" style="text-align: center;color: red;" id='openInd'>Door Status</h1>
+									<h1 id="doorProgress" style="text-align: center;color: red;" >Server says...</h1>
+								</div>
+								<div class="well">
+									<h4 style="text-align: center;" >Door Operation Time</h4>
+									<h1 id="doorOpTime" style="text-align: center;color: red;" >Last door operation time</h1>
+								</div>
+							</div>
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-4">
+						<h3 style="text-align: center;">Camera 1</h3>
+						<div class="row"></div>
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=2&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-up"></span></a>
+					
+							</div>
+							<div class="col-md-4"></div>
+						
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-2">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=6&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=4&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-right"></span></a>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=0&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-down"></span></a>
+							</div>
+							<div class="col-md-4"></div>
+						<iframe name="bres" width="1" height="1"></iframe>
+						</div>
+						<div class="row"></div>
+
+					</div>
+					<div class="col-md-8">
+						<img class="vs" alt="" src="http://atango.dyndns-server.com:9001/videostream.cgi?user=guest&pwd=" height="400px" width="530px">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<h3 style="text-align: center;">Camera 2</h3>
+												<div class="row"></div>
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=2&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-up"></span></a>
+					
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-2">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=6&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=4&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-right"></span></a>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=0&onestep=5&user=guest&pwd=" target="bres"
+				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-down"></span></a>
+							</div>
+							<div class="col-md-4"></div>
+					<iframe name="bres" width="1" height="1"></iframe>
+						</div>
+						<div class="row"></div>
+
+
+					</div>
+					<div class="col-md-8">
+						<img class="vs" alt="" src="http://atango.dyndns-server.com:9001/videostream.cgi?user=guest&pwd=" height="400px" width="530px">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p id="timeLog" class="text-muted">Time messages</p>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript  ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="dist/js/jquery.min.js"><\/script>')</script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="ie10-viewport-bug-workaround.js"></script>
+
+	<!-- Socket.io -->
+	<script src="socket.io.js"></script>
+	<script src="indicators.js"></script>
+
+	<script src="pagecontroller.js" type="text/javascript"></script>
+	<script src="clock.js" type="text/javascript"></script>
+	<script src="cameracontrols.js" type="text/javascript"></script>
+	<script type="text/javascript">img=new Image();img.src= "http://images.webestools.com/buttons.php?frm=2&btn_type=12&txt=up4";</script>
+	<script src="moment.js" type="text/javascript"></script>
+	<script src="bootstrap-material-datetimepicker.js" type="text/javascript"></script>
+	
+
+	
+	
+  </body>
 </html>
