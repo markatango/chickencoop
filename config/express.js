@@ -48,9 +48,9 @@ module.exports = function(db){
 
 
     app.use(express.static(path.join( __dirname, '../node_modules/socket.io/node_modules/socket.io-client/dist')));
-    app.use(express.static(path.join( __dirname, '../js')));
+    app.use(express.static(path.join( __dirname, '../public/assets/js')));
     app.use(express.static(path.join( __dirname, '../images')));
-    app.use(express.static(path.join( __dirname, '../css')));
+    app.use(express.static(path.join( __dirname, '../public/assets/css')));
     app.use(express.static(path.join( __dirname, '../public/views')));
     app.use(express.static(path.join( __dirname, '../bower_components/bootstrap')));
     app.use(express.static(path.join( __dirname, '../bower_components/jquery')));

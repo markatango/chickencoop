@@ -1,5 +1,5 @@
 
-doStrings = require('../../js/doorOpStrings');
+doStrings = require('./js/doorOpStrings');
 
 module.exports = function(app, io){
       var spawn = require('child_process').spawn;

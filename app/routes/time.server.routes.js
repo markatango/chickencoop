@@ -1,6 +1,6 @@
 var times = require('../controllers/times.server.controller');
 
-doStrings = require('../../js/doorOpStrings');
+doStrings = require('./js/doorOpStrings');
 
 module.exports = function(app, io){
 
