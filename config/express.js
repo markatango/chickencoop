@@ -47,18 +47,12 @@ module.exports = function(db){
     require('../app/routes/button.server.routes.js')(app, io);
 
 
-    //app.use(express.static(path.join( __dirname, '../node_modules/socket.io/node_modules/socket.io-client/dist')));
-    app.use(express.static(path.join( __dirname, '../public/assets/js')));
-    app.use(express.static(path.join( __dirname, '../images')));
-    app.use(express.static(path.join( __dirname, '../public/assets/css')));
+    app.use(express.static(path.join( __dirname, '../public/assets')));
     app.use(express.static(path.join( __dirname, '../public/views')));
     app.use(express.static(path.join( __dirname, '../bower_components/bootstrap')));
     app.use(express.static(path.join( __dirname, '../bower_components/jquery')));
-    app.use(express.static(path.join( __dirname, '../bower_components/moment')));
-    app.use(express.static(path.join( __dirname, '../bower_components/bootstrap-material-datetimepicker/js')));
-    app.use(express.static(path.join( __dirname, '../bower_components/bootstrap-material-datetimepicker/css')));
-
-
+    app.use(express.static(path.join( __dirname, '../bower_components')));
+    app.use(express.static(path.join( __dirname, '../bower_components/bootstrap-material-datetimepicker')));
     
     return server;
 }
