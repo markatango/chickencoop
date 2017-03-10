@@ -21,7 +21,6 @@ const getErrorMessage = function(err){
 };
 
 
-
 exports.create = function(req, res, next){
     var time = new Time(req.body);
     time.save(function(err) {

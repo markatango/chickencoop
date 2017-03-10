@@ -1,13 +1,21 @@
 var times = require('../controllers/times.server.controller');
+var Time = require('mongoose').model('Time');
 
 doStrings = require('./js/doorOpStrings');
 
 module.exports = function(app, io){
 
-      
-
     app.post('/times', function(req, res, next){
-	        var times = new Time(req.body);
+	
+	        var starttime = "1970-01-01T" + req.body.startTime + ":00Z"
+		var endtime = "1970-01-01T" + req.body.endTime + ":00Z"
+		
+		console.log("Start time: " + starttime);
+		console.log("End time: " + endtime);
+
+		var times = new Time();
+		times.startTime = starttime;
+		times.endTime = endtime;
                 times.save(function(err){
                     if(err){
 			return next(err);
@@ -19,17 +27,19 @@ module.exports = function(app, io){
 		io.emit('doorstatemsg', doStrings.doorOps.UP.doorStateMsg);
 		io.emit('doorprogmsg', doStrings.doorOps.UP.doorProgMsg);
 		io.emit('dooroptime', doStrings.doorOps.UP.doorOpTime);
-	        io.emit('timelog', timerres);	
+	        io.emit('timelog', times);
+		io.emit('dooropentime', req.body.startTime);
+		io.emit('doorclosetime', req.body.endTime);
+    });
+
+    app.post('/starttime', function(req, res){
+	   res.json(JSON.stringify(req.body));
+
     });
 
     app.post('/endtime', function(req, res){
-	   
-		
-		io.emit('doorstatemsg', doStrings.doorOps.DOWN.doorStateMsg);
-		io.emit('doorprogmsg', doStrings.doorOps.DOWN.doorProgMsg);
-		io.emit('dooroptime', doStrings.doorOps.DOWN.doorOpTime);
-	        io.emit('timelog', timerres);	
-	    });
+	   res.json(JSON.stringify(req.body));
+
     });
 
     app.get('/report', function(req, res){

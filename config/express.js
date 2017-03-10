@@ -21,7 +21,7 @@ module.exports = function(db){
     /*if(process.env.NODE_ENV == 'development'){
 	app.use(bodyLogger);
     }*/
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(methodOverride());
 
@@ -45,7 +45,7 @@ module.exports = function(db){
 	});
 
     require('../app/routes/button.server.routes.js')(app, io);
-
+    require('../app/routes/time.server.routes.js')(app, io);
 
     app.use(express.static(path.join( __dirname, '../public/assets')));
     app.use(express.static(path.join( __dirname, '../public/views')));

@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
-	$('#dooropentime').bootstrapMaterialDatePicker({date:false, format:'HH:mm'});
+	//$('#dooropentime').bootstrapMaterialDatePicker({date:false, format:'HH:mm'});
 
-	$('#doorclosetime').bootstrapMaterialDatePicker({date:false, format:'HH:mm'});
+	//$('#doorclosetime').bootstrapMaterialDatePicker({date:false, format:'HH:mm'});
         
         $("#open").click(function(){
             $.get("http://atango.dyndns-server.com:3000/open", function(res){

@@ -15,3 +15,11 @@ socket.on('dooroptime', function(msg){
 socket.on('timelog', function(msg){
 	$('#timeLog').text(msg);
 });
+
+socket.on('dooropentime', function(msg){
+	$('#dooropentime').val(msg);
+});
+
+socket.on('doorclosetime', function(msg){
+	$('#doorclosetime').val(msg);
+});

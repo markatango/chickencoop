@@ -11,6 +11,7 @@ function formatTime(currentTime){
 	return currentTimeString;
 }
 
+
 function updateClock(){
 
 // NTP source
