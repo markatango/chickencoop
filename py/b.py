@@ -9,4 +9,4 @@ def end():
 
 if __name__ == '__main__':
     interval = end()
-    print('{:4.3}'.format(interval))
+    print('Time interval: {:4.3}'.format(interval))

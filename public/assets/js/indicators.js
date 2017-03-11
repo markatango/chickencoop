@@ -23,3 +23,11 @@ socket.on('dooropentime', function(msg){
 socket.on('doorclosetime', function(msg){
 	$('#doorclosetime').val(msg);
 });
+
+socket.on('checkUPlim', function(bool){
+	$('#ULS').prop('checked', true);
+});
+
+socket.on('checkDNlim', function(bool){
+	$('#LLS').prop('checked', bool);
+});

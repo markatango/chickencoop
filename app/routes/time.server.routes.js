@@ -1,46 +1,12 @@
-var times = require('../controllers/times.server.controller');
+
 var Time = require('mongoose').model('Time');
 
-doStrings = require('./js/doorOpStrings');
+doStrings = require('../js/doorOpStrings');
 
 module.exports = function(app, io){
+    var timeCtrl = require('../controllers/times.server.controller')(io);
 
-    app.post('/times', function(req, res, next){
-	
-	        var starttime = "1970-01-01T" + req.body.startTime + ":00Z"
-		var endtime = "1970-01-01T" + req.body.endTime + ":00Z"
-		
-		console.log("Start time: " + starttime);
-		console.log("End time: " + endtime);
-
-		var times = new Time();
-		times.startTime = starttime;
-		times.endTime = endtime;
-                times.save(function(err){
-                    if(err){
-			return next(err);
-                    } else {
-                        res.json(times);
-                    }
-                });
-        
-		io.emit('doorstatemsg', doStrings.doorOps.UP.doorStateMsg);
-		io.emit('doorprogmsg', doStrings.doorOps.UP.doorProgMsg);
-		io.emit('dooroptime', doStrings.doorOps.UP.doorOpTime);
-	        io.emit('timelog', times);
-		io.emit('dooropentime', req.body.startTime);
-		io.emit('doorclosetime', req.body.endTime);
-    });
-
-    app.post('/starttime', function(req, res){
-	   res.json(JSON.stringify(req.body));
-
-    });
-
-    app.post('/endtime', function(req, res){
-	   res.json(JSON.stringify(req.body));
-
-    });
+    app.post('/times', timeCtrl.create); 
 
     app.get('/report', function(req, res){
             var process = spawn('python', ['./py/hello.py']);
@@ -100,27 +66,7 @@ module.exports = function(app, io){
         res.end("Coop event: " + req.body.query);
     });
 
-	app.get('/initialize', function(req, res){
-	  var spawn = require('child_process').spawn;
-	  var process = spawn('python', ['./py/switchWatch.py']);
-	  process.stdout.on('data', function(data){
-	        var msg = JSON.parse(`${data}`);
-		//console.log("Switch status: " + `${data}`);
-		//console.log("Specifically, msg['UPLIM'] = " + msg["UPLIM"]);
-		res.end("Switch status: " + `${data}`);
-
-		io.emit('doorprogmsg', "");
-		
-		if(msg["UPLIM"] == 1) {
-			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);	
-		} else if(msg["DNLIM"] == 1) {
-			io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
-		} else {
-			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
-		}
-	  });
 	
-	});
 
     /*app.get('/ntptime', function(req, res){
         var process = spawn('python', ['./py/c.py']);

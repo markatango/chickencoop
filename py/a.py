@@ -10,7 +10,7 @@ def start():
 
 if __name__ == '__main__':
     now = start()
-    print('{:4.3}'.format(now))
+    print('Start time{:4.3}'.format(now))
 
     
 
