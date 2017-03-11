@@ -9,7 +9,7 @@ var config = require('./config'),
     
     path = require('path');
 
-module.exports = function(db){
+module.exports = function(db){ // db is only needed if we activate MongoStore in this file
     var app = express();
     var server = http.createServer(app);
     var io = require('socket.io')(server);
@@ -28,21 +28,7 @@ module.exports = function(db){
     
     io.on('connection', function(socket){
 	  console.log('a user connected');
-	 /* 
-	  var spawn = require('child_process').spawn;
-	  var process = spawn('python', ['./py/switchWatch.py']);
-          process.stdout.on('data', function(data){
-                var msg = `${data}`;
-		socket.emit('doorprogmsg', "");
-		if(msg["UPLIM"] == 1) {
-			socket.emit('doorstatemsg', "OPENED");	
-		}
-		if(msg["DNLIM"] == 1) {
-			socket.emit('doorstatemsg', "CLOSED");	
-		}
-            });
-	*/
-	});
+     });
 
     require('../app/routes/button.server.routes.js')(app, io);
     require('../app/routes/time.server.routes.js')(app, io);

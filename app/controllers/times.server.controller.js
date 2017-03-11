@@ -21,8 +21,18 @@ const getErrorMessage = function(err){
 };
 
 const timeStringToDate = function(timeString){
-	return "1970-01-01T" + timeString + ":00Z";
+	return "1970-01-01 " + timeString + ":00Z";
 };
+
+const dateStringTotime = function(dateString){
+	var dt = new Date(dateString);
+	var hrs = dt.getHours();
+	if(hrs <10) hrs = "0" + hrs;
+	var mins = dt.getMinutes();
+	if(mins <10) mins = "0" + mins;
+	return hrs + ":" + mins;
+};
+
 
 module.exports = function(io) {
 
@@ -52,6 +62,14 @@ module.exports = function(io) {
 	    io.emit('timelog', time);
 	    io.emit('dooropentime', req.body.startTime);
 	    io.emit('doorclosetime', req.body.endTime);
+	},
+
+	lasttime : function(req, res, next){
+		Time.find().sort({created : -1}).limit(1).exec(function(err,time){
+			res.send(time);
+			io.emit('dooropentime', dateStringTotime(time[0].startTime));
+	    		io.emit('doorclosetime', dateStringTotime(time[0].endTime));
+		});
 	},
 	
 	list : function(req, res, next){
