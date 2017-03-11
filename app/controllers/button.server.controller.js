@@ -1,6 +1,7 @@
 const Time = require('mongoose').model('Time');
-var spawn = require('child_process').spawn;
-var doStrings = require('../js/doorOpStrings');
+const spawn = require('child_process').spawn;
+const path = require('path');
+const doStrings = require('../js/doorOpStrings');
 
 const getErrorMessage = function(err){
     var message = '';
@@ -25,6 +26,18 @@ const getErrorMessage = function(err){
 module.exports = function(io) {
   
     return {
+
+	home : function(req, res){
+	          var filename = path.join(__dirname, '../..', 'public/views/index.html'); 
+      		  res.sendFile(filename, function(err){
+                      if(err){
+                         console.log(err);
+                         res.status(err.status).end();
+                      } else {
+                         console.log('Sent: ' + filename);
+		      }
+                  });
+    	},
 	
 	open : function(req, res){
 	//spawns a python script with __name__ == '__main__'
@@ -142,13 +155,21 @@ module.exports = function(io) {
 			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
 			io.emit('checkUPlim', true);
 		} else if(msg["DNLIM"] == 1) {
-			io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
+		 	io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
 			io.emit('checkDNlim', true);
 		} else {
 			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
 		}
 	   }); //process.stdout.on	
-	}
+	},
+
+	ntptime : function(req, res){
+	        var process = spawn('python', ['./py/c.py']);
+		process.stdout.on('data', function(data){
+		   console.log(`${data}`);
+		   res.end(`${data}`);
+	        });
+    	}
     }; // return
 };
 
