@@ -1,4 +1,5 @@
 const Time = require('mongoose').model('Time');
+doStrings = require('../js/doorOpStrings');
 
 const getErrorMessage = function(err){
     var message = '';
