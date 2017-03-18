@@ -46,5 +46,5 @@ $(document).ready(function(){
 		console.log("retrieving last time settings");
 	});
 
-	setInterval(updateClock, 1000);
+	//setInterval(updateClock, 1000);
 });

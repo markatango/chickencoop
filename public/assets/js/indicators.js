@@ -31,3 +31,7 @@ socket.on('checkUPlim', function(bool){
 socket.on('checkDNlim', function(bool){
 	$('#LLS').prop('checked', bool);
 });
+
+socket.on('clockReadout', function(ccTime){
+        $('#clock').html(ccTime);
+});

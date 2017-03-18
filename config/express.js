@@ -6,14 +6,20 @@ var config = require('./config'),
     bodyLogger = require('../app/custom_middleware/body-logger'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
+    path = require('path'),
+    clockEvent = require('../app/js/clockEvent');
     
-    path = require('path');
-
-module.exports = function(db){ // db is only needed if we activate MongoStore in this file
+module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file
     var app = express();
     var server = http.createServer(app);
     var io = require('socket.io')(server);
 
+    io.on('connection', function(socket){
+	  console.log('a user connected');
+          clockEvent.immediate(io);
+    });
+
+    require('../app/js/startClocker').start(io);
     var cors = require('../app/custom_middleware/cors');
     app.use(morgan('dev'));
     app.use(cors);
@@ -26,12 +32,9 @@ module.exports = function(db){ // db is only needed if we activate MongoStore in
     app.use(methodOverride());
 
     
-    io.on('connection', function(socket){
-	  console.log('a user connected');
-     });
-
+   
     require('../app/routes/button.server.routes.js')(app, io);
-    require('../app/routes/time.server.routes.js')(app, io);
+    require('../app/routes/time.server.routes.js')(app, io, cron);
 
     app.use(express.static(path.join( __dirname, '../public/assets')));
     app.use(express.static(path.join( __dirname, '../public/views')));
