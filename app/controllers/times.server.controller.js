@@ -1,5 +1,6 @@
 const Time = require('mongoose').model('Time');
 const doStrings = require('../js/doorOpStrings');
+var exec = require('child_process').exec; 
 
 const getErrorMessage = function(err){
     var message = '';
@@ -78,7 +79,7 @@ module.exports = function(io, cron) {
 	        } else {
 	            res.json(time);
 	        }
-	    });
+	    });//save
 	    
 
 	killOpenCronJob(cronJobOpen);
@@ -87,26 +88,43 @@ module.exports = function(io, cron) {
 	Time.find().sort({created : -1}).limit(1).exec(function(err,time){
 		var cronString = makeCronString(time[0].startTime);
                 console.log(time[0]);
-		console.log('cronString: ' + cronString);
+		console.log('open cronString: ' + cronString);
 		cronJobOpen = cron.schedule(cronString, function(){
-			console.log("boinkboink open");
-			//wget http://localhost:3000/open;
-		     });
+			console.log("scheduled open");
+			var child = exec('/usr/bin/wget http://localhost:3000/open', function(err, stdout, stderr){
+                            if(err !== null){
+                                console.log("error: " + err);
+                             } else {
+                                console.log("open succeeded!");
+                             }
+                         });
+                });
 
 		cronJobOpen.start();
 
 		cronString = makeCronString(time[0].endTime);
-		console.log('cronString: ' + cronString);
+		console.log('close cronString: ' + cronString);
 		cronJobClose = cron.schedule(cronString, function(){
-			console.log("boinkboink close");
-			//wget http://localhost:3000/close;
-		     });
-	    });
+			console.log("scheduled close");
+			var child = exec('/usr/bin/wget http://localhost:3000/open', function(err, stdout, stderr){
+                            if(err !== null){
+                                console.log("error: " + err);
+                             } else {
+                                console.log("close succeeded!");
+                             }
+                        });//exec
+	        });//schedule
+               cronJobClose.start();
+	    });//db find and execute
 	
+            /* should be managed by /open /close endpoings
 	    io.emit('doorstatemsg', doStrings.doorOps.UP.doorStateMsg);
 	    io.emit('doorprogmsg', doStrings.doorOps.UP.doorProgMsg);
 	    io.emit('dooroptime', doStrings.doorOps.UP.doorOpTime);
 	    io.emit('timelog', time);
+            */
+
+            //update the open close time displays
 	    io.emit('dooropentime', req.body.startTime);
 	    io.emit('doorclosetime', req.body.endTime);
 	},

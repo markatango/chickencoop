@@ -64,7 +64,7 @@ module.exports = function(io) {
 	close : function(req, res){
 	    var process = spawn('python', ['./py/motorAction.py', JSON.stringify(doStrings.doorOps.DOWN.door_op)]);
             process.stdout.on('data', function(data){
-                var msg = "Door command: " + `${data}`;
+                var msg = "Door close command: " + `${data}`;
 		console.log(msg);
             });
 	    var timer = spawn('python', ['./py/a.py'])
