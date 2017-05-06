@@ -69,65 +69,68 @@ module.exports = function(io, cron) {
 	    var endtime = timeStringToDate(req.body.endTime);
 	    console.log("Start time: " + starttime);
 	    console.log("End time: " + endtime);
-	
-	    var time = new Time();
-	    time.startTime = starttime;
-	    time.endTime = endtime;
-            time.save(function(err){
-	        if(err){
-	    	    return next(err);
-	        } else {
-	            res.json(time);
-	        }
-	    });//save
+
+	    if(starttime && endtime){
+		var time = new Time();
+	    	time.startTime = starttime;
+	    	time.endTime = endtime;
+            	time.save(function(err){
+	        	if(err){
+	    		    return next(err);
+	        	} else {
+	       	     res.json(time);
+	        	}
+	    	});//save
+	    } else {
+		console.log("times.server.controller create: times in body are invalid");
+            }
 	    
+	    killOpenCronJob(cronJobOpen);
+	    killOpenCronJob(cronJobClose);
 
-	killOpenCronJob(cronJobOpen);
-	killOpenCronJob(cronJobClose);
-
-	Time.find().sort({created : -1}).limit(1).exec(function(err,time){
-		var cronString = makeCronString(time[0].startTime);
-                console.log(time[0]);
-		console.log('open cronString: ' + cronString);
-		cronJobOpen = cron.schedule(cronString, function(){
-			console.log("scheduled open");
-			var child = exec('/usr/bin/wget http://localhost:3000/open', function(err, stdout, stderr){
-                            if(err !== null){
-                                console.log("error: " + err);
-                             } else {
-                                console.log("open succeeded!");
-                             }
-                         });
-                });
-
-		cronJobOpen.start();
-
-		cronString = makeCronString(time[0].endTime);
-		console.log('close cronString: ' + cronString);
-		cronJobClose = cron.schedule(cronString, function(){
-			console.log("scheduled close");
-			var child = exec('/usr/bin/wget http://localhost:3000/open', function(err, stdout, stderr){
-                            if(err !== null){
-                                console.log("error: " + err);
-                             } else {
-                                console.log("close succeeded!");
-                             }
-                        });//exec
-	        });//schedule
-               cronJobClose.start();
-	    });//db find and execute
+	    Time.find().sort({created : -1}).limit(1).exec(function(err,time){
+		if(err){
+ 			console.log("Time.find() failed to return value. Check database.")
+		} else {
+			var cronString = makeCronString(time[0].startTime);
+	                console.log(time[0]);
+			console.log('open cronString: ' + cronString);
+			cronJobOpen = cron.schedule(cronString, function(){
+				console.log("scheduled open");
+				var child = exec('/usr/bin/wget http://localhost:3000/open', function(err, stdout, stderr){
+	                            if(err !== null){
+	                                console.log("error: " + err);
+	                             } else {
+	                                console.log("open succeeded!");
+	                             }
+	                         });
+	                });
 	
-            /* should be managed by /open /close endpoings
-	    io.emit('doorstatemsg', doStrings.doorOps.UP.doorStateMsg);
-	    io.emit('doorprogmsg', doStrings.doorOps.UP.doorProgMsg);
-	    io.emit('dooroptime', doStrings.doorOps.UP.doorOpTime);
-	    io.emit('timelog', time);
-            */
+			cronJobOpen.start();
+	
+			cronString = makeCronString(time[0].endTime);
+			console.log('close cronString: ' + cronString);
+			cronJobClose = cron.schedule(cronString, function(){
+				console.log("scheduled close");
+				var child = exec('/usr/bin/wget http://localhost:3000/close', function(err, stdout, stderr){
+	                            if(err !== null){
+	                                console.log("error: " + err);
+	                             } else {
+	                                console.log("close succeeded!");
+	                             }
+	                        });//exec
+		        });//schedule
+	
+	               cronJobClose.start();
+		}; //else no error
+	
+	   });//db find and execute
+	      
+           //update the open close time displays
+	   io.emit('dooropentime', req.body.startTime);
+	   io.emit('doorclosetime', req.body.endTime);
 
-            //update the open close time displays
-	    io.emit('dooropentime', req.body.startTime);
-	    io.emit('doorclosetime', req.body.endTime);
-	},
+    	},// create
 
 	lasttime : function(req, res, next){
 		Time.find().sort({created : -1}).limit(1).exec(function(err,time){
@@ -135,7 +138,7 @@ module.exports = function(io, cron) {
 			io.emit('dooropentime', dateStringTotime(time[0].startTime));
 	    		io.emit('doorclosetime', dateStringTotime(time[0].endTime));
 		});
-	},
+	},//lasttime
 	
 	list : function(req, res, next){
 	    Time.find({}, function(err, time){
@@ -145,6 +148,6 @@ module.exports = function(io, cron) {
 	              res.json(time);
 	         }
 	     });
-	} 	
+	}//list	
    }
 };
