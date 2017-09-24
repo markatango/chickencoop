@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+// requiring this module attaches a model to the mongoose object
+
+const mongoose = require('mongoose'); //from node_modules
 const Schema = mongoose.Schema;
 
 const TimeSchema = new Schema({

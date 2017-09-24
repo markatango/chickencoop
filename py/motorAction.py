@@ -25,6 +25,7 @@ if __name__ == '__main__':
     
     ma = MotorAction(sys.argv[1])
     op = '{"door" : "up", "bQuit" : "False"}'
+    print op
     #ma = MotorAction(op)
     
     

@@ -8,11 +8,13 @@ var config = require('./config'),
     flash = require('connect-flash'),
     path = require('path'),
     clockEvent = require('../app/js/clockEvent');
-    
+	   
 module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file
     var app = express();
     var server = http.createServer(app);
     var io = require('socket.io')(server);
+
+    require('./initialize_buttons')(io);
 
     io.on('connection', function(socket){
 	  console.log('a user connected');
@@ -30,8 +32,6 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(methodOverride());
-
-    
    
     require('../app/routes/button.server.routes.js')(app, io);
     require('../app/routes/time.server.routes.js')(app, io, cron);

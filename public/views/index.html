@@ -110,20 +110,32 @@
 					<div class="well">
 						<h4 style="text-align: center;">Manual Operation</h4>
 							<div class="row">
-								<div class="col-md-1"></div>
+								<!-- <div class="col-md-1"></div> -->
 								<div class="col-md-4">
+									<h4>Door Action</h4>
 									<input type="button" value="Open" id="open">
 									<input type="button" value="Close" id="close">	
 								</div>			
-								<div class="col-md-1"></div>
+								<!-- <div class="col-md-1"></div> -->
 								<div class="col-md-4">
 									<h4>Door Limits</h4>
 									<label for="ULS">Upper</label>
-									<input type="radio" id="ULS" name="switches" value="ULS">
+									<input type="radio" id="ULS" name="limits" value="ULS">
 									<label for="LLS">Lower</label>	
-									<input type="radio" id="LLS" name="switches" value="LLS">
+									<input type="radio" id="LLS" name="limits" value="LLS">
 								</div>
-								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<h4>Local switches</h4>
+									<label for="UPS">Up</label>
+									<input type="checkbox" id="UPS" name="switches" value="UPS" disabled>
+									<label for="STS">Stop</label>	
+									<input type="checkbox" id="STS" name="switches" value="STS" disabled>
+									<label for="DNS">Down</label>	
+									<input type="checkbox" id="DNS" name="switches" value="DNS" disabled>
+
+								</div>
+
+								<!-- <div class="col-md-2"></div> -->
 							</div>
 							<div class="row"></div>
 					</div>
@@ -226,7 +238,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+	    	</div>
 	</div>
     </div>
 
@@ -239,23 +251,24 @@
 
     <!-- Bootstrap core JavaScript  ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="dist/js/jquery.min.js"><\/script>')</script>
     <script src="dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 
-	<!-- Socket.io -->
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="js/indicators.js"></script>
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/indicators.js"></script>
 
-	<script src="js/pagecontroller.js" type="text/javascript"></script>
-	<script src="js/clock.js" type="text/javascript"></script>
-	<script src="js/cameracontrols.js" type="text/javascript"></script>
-	<script type="text/javascript">img=new Image();img.src= "http://images.webestools.com/buttons.php?frm=2&btn_type=12&txt=up4";</script>
-	<!-- <script src="moment/moment.js" type="text/javascript"></script> -->
-	<!-- <script src="js/bootstrap-material-datetimepicker.js" type="text/javascript"></script> -->
-	<script src="js/timesChanged.js" type="text/javascript"></script>
+    <script src="js/pagecontroller.js" type="text/javascript"></script>
+    <script src="js/clock.js" type="text/javascript"></script>
+    <script src="js/cameracontrols.js" type="text/javascript"></script>
+    <script type="text/javascript">img=new Image();img.src= "http://images.webestools.com/buttons.php?frm=2&btn_type=12&txt=up4";</script>
+    <!-- <script src="moment/moment.js" type="text/javascript"></script> -->
+    <!-- <script src="js/bootstrap-material-datetimepicker.js" type="text/javascript"></script> -->
+    <script src="js/timesChanged.js" type="text/javascript"></script>
 	
 
 	

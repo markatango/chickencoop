@@ -1,6 +1,6 @@
 import sys
 def run():
-    return "hello"
+    return '{"UPLIM":1}'
     
 
 data_out = run()
