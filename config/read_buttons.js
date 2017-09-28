@@ -3,7 +3,7 @@ const spawn = require('child_process').spawn;
 
 module.exports = function(io){
    console.log("initializing buttons");
-   var process = spawn('python', ['./py/coopSwitchesWithEvents.py','initialize']);
+   var process = spawn('python', ['./py/coopSwitchesWithEvents.py']);
 
    
    process.stdout.on('data', function(data){

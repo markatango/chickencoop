@@ -234,55 +234,59 @@ module.exports = function(io) {
 	
 	        res.end("coopevents.res: " + req.body.query);
       },
+	
+	readButtons : function(req, res){
+	   var spawn = require('child_process').spawn;
+	   
+	   var process = spawn('python', ['./py/coopSwitchesWithEvents.py']);
+	   process.stdout.on('data', function(data){
+	        var msg = `${data}`;
+		console.log("Switch status: " + msg);
+		res.end("Switch status: " + msg);
 
-//	initButtons : function(req, res){
-//	   var spawn = require('child_process').spawn;
-//	   
-//	   var process = spawn('python', ['./py/coopSwitchesWithEvents.py']);
-//	   process.stdout.on('data', function(data){
-//	        var msg = `${data}`;
-//		console.log("Switch status: " + `${data}`);
-//		res.end("Switch status: " + `${data}`);
-//
-//		io.emit('doorprogmsg', "");
-//		
-//		if(msg["UPLIM"] == 1) {
-//			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
-//			io.emit('checkUPlim', true);
-//		} else if(msg["DNLIM"] == 1) {
-//		 	io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
-//			io.emit('checkDNlim', true);
-//		} else {
-//			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
-//		}
-//		if(msg["UPS"] == 1) {
-//			console.log("Local up switch pushed");
-//			io.emit('checkLocalUp', true);
-//		} else {
-//			io.emit('checkLocalUp', false);
-//		}
-//		if(msg["STS"] == 1) {
-//			console.log("Local stop switch pushed");
-//			io.emit('checkLocalSt', true);
-//		} else {
-//			io.emit('checkLocalSt', false);
-//
-//		}
-//		if(msg["DNS"] == 1) {
-//			console.log("Local down switch pushed");
-//			io.emit('checkLocalDn', true);
-//		} else {
-//			io.emit('checkLocalDn', false);
-//		}
-//
-//
-//	   }); //process.stdout.on	
-//	   process.stderr.on('data', function(data){
-//		console.log(`${data}`);
-//  
-//              res.end(data);
-//	    });
-//	},
+		io.emit('doorprogmsg', "");
+
+		var msgj = JSON.parse(msg);
+		if(msgj["UPLIM"] == 1) {
+			console.log('msgj["UPLIM"] == 1');
+			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
+			io.emit('checkUPlim', true);
+		} else if(msgj["DNLIM"] == 1) {
+			console.log('msgj["DNLIM"] == 1');
+		 	io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
+			io.emit('checkDNlim', true);
+		} else {
+			console.log('msgj["DNLIM"] == 0 and msgj["UPLIM"] == 0');
+			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
+		}
+		if(msgj["UPS"] == 1) {
+			console.log("Local up switch pushed");
+			io.emit('checkLocalUp', true);
+		} else {
+			io.emit('checkLocalUp', false);
+		}
+		if(msgj["STS"] == 1) {
+			console.log("Local stop switch pushed");
+			io.emit('checkLocalSt', true);
+		} else {
+			io.emit('checkLocalSt', false);
+
+		}
+		if(msgj["DNS"] == 1) {
+			console.log("Local down switch pushed");
+			io.emit('checkLocalDn', true);
+		} else {
+			io.emit('checkLocalDn', false);
+		}
+
+
+	   }); //process.stdout.on	
+	   process.stderr.on('data', function(data){
+		console.log(`${data}`);
+  
+              res.end(data);
+	    });
+	},
 
 	ntptime : function(req, res){
 	        var process = spawn('python', ['./py/c.py']);

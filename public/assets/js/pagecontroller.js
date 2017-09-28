@@ -38,9 +38,9 @@ $(document).ready(function(){
 	    });
         }); 
 	
-//	$.get("http://atango.dyndns-server.com:3000/initialize", function(res){
-//		console.log("initializing buttons");
-//	});
+	$.get("http://atango.dyndns-server.com:3000/readcontrols", function(res){
+		console.log("initializing browser buttons: " + JSON.stringify(res));
+	});
 
 	$.get("http://atango.dyndns-server.com:3000/lasttime", function(res){
 		console.log("retrieving last time settings");
