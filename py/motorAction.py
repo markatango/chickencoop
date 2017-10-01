@@ -2,29 +2,24 @@ from RPi import GPIO as gp
 import sys
 import time
 import json
-
-from coopSwitchesWithEvents import CoopSwitchesWithEvents
-import multiprocessing as mp
+import doorcontrol as dc
 
 class MotorAction:
+    dcc = dc.DoorControl
     
-    #params: '{"door" : ["up" | "down" | "read" | "stope" ], "bQuit" : ["True" | "False"]}'
+    #params: '{"door" : ["up" | "down" | "read" | "stop" ], "bQuit" : ["True" | "False"]}'
     def __init__(self, params):
-        self.data = json.loads(params)
-        self.e = mp.Event()
-        self.obj = CoopSwitchesWithEvents(self.e)
-       
+        MotorAction.dcc.init(1.5)
+        self.data = json.loads(params)     
         self.switch(self.data['door'])
 
     def switch(self, x):
-        self.obj.motorOp(x)
-	print self.data['door']
-
+        MotorAction.dcc.motorOp(x)
 
 if __name__ == '__main__':
     
-    ma = MotorAction('{"door":"up"}')
-    
+    ma = MotorAction(sys.argv[1])
+    print sys.argv[1]
     
    
                

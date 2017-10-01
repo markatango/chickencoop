@@ -4,8 +4,6 @@ const path = require('path');
 const doStrings = require('../js/doorOpStrings');
 const Stopwatch = require('node-stopwatch').Stopwatch;
 
-
-
 const getErrorMessage = function(err){
     var message = '';
     if (err.code) {
@@ -43,19 +41,21 @@ module.exports = function(io) {
     	},
 	
 	open : function(req, res){
-	
-           
-  
+
 	//spawns a python script with __name__ == '__main__'
 	    var process = spawn('python', ['./py/motorAction.py', JSON.stringify(doStrings.doorOps.UP.door_op)]);
+	    var resp = ''
             process.stdout.on('data', function(data){
-                var msg = "Door command: " + `${data}`;
+                var msg = "Door open command: " + `${data}`;
 		console.log(msg);
+	        resp += data
             });
             process.stderr.on('data', function(data){
 		console.log(`${data}`);
-                res.end(data);
+	        resp += data
 	    });
+            res.end(resp)
+
 
 	    
 //	    var timer = spawn('python', ['./py/a.py']);
@@ -80,14 +80,18 @@ module.exports = function(io) {
 	close : function(req, res){
   
 	    var process = spawn('python', ['./py/motorAction.py', JSON.stringify(doStrings.doorOps.DOWN.door_op)]);
+	    var resp = ''
             process.stdout.on('data', function(data){
                 var msg = "Door close command: " + `${data}`;
 		console.log(msg);
+	        resp += data
             });
 	    process.stderr.on('data', function(data){
 		console.log(`${data}`);
-                res.end(data);
+ 	        resp += data
 	    });
+            res.end(resp)
+
 //	    var timer = spawn('python', ['./py/a.py'])
 	    
 //	    timer.stdout.on('data', function(data){
@@ -144,29 +148,6 @@ module.exports = function(io) {
 //	        });
 		
 //     },
-
-//	lowerlim : function(req, res){
-//		console.log("Lower limit reached");
-//		res.end('lowerlim');
-//	
-//		var timer = spawn('python', ['./py/b.py'])
-//		
-//		timer.stdout.on('data', function(data){
-//			var timerres = `${data}`
-//			var msg = "Door movement time interval: " + timerres;
-//			console.log(msg);
-//			res.end(msg);
-//			
-//			io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);
-//			io.emit('doorprogmsg', doStrings.doorOps.DNLIM.doorProgMsg);
-//			io.emit('dooroptime', timerres);
-//			io.emit('timelog', timerres);
-//		});
-//                timer.stderr.on('data', function(data){
-//			console.log(`${data}`);
-//              	res.end(data);
-//		});
-//       }, 
 	
 	coopevents : function(req, res){
      		var elapsed = {'seconds' : '0', 'milliseconds' : 0};
@@ -235,7 +216,7 @@ module.exports = function(io) {
 	        res.end("coopevents.res: " + req.body.query);
       },
 	
-	readButtons : function(req, res){
+	startdoorcontrol : function(req, res){
 	   var spawn = require('child_process').spawn;
 	   
 	   var process = spawn('python', ['./py/coopSwitchesWithEvents.py']);

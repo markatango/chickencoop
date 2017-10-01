@@ -12,11 +12,10 @@ class CoopSwitchesWithEvents:
 
     currSwState = {}
     dc = doorcontrol.DoorControl
-    dc.init(1.5)
     
     def __init__(self, event):
         self.e = event
-             
+        CoopSwitchesWithEvents.dc.init(1.5)     
         CoopSwitchesWithEvents.currSwState = CoopSwitchesWithEvents.dc.readSws()
 
     def loop(self):     
@@ -45,15 +44,10 @@ if __name__ == '__main__':
 	    w2 = multiprocessing.Process(name='Scan switches',
 	                                 target=obj.dc.scanSws,
 	                                 args=())
-
-##	    w3 = multiprocessing.Process(name='Scan web controls',
-##					 target=obj.scanWeb,
-##					 args=())
 	    
 	    w1.start()
 	    w2.start()
-##	    w3.start()
-	    
+
 	    try:
 	        while 1:
 	            if e.is_set():
@@ -65,15 +59,17 @@ if __name__ == '__main__':
 	        print "Terminating threads..."
 	        w1.terminate()
 	        w2.terminate()
-##	        w3.terminate()
         	print "Cleaned up GPIO..."
 
     else: print json.dumps(obj.dc.readSws())
 
-	
     
-
-    
+if __name__ == '__main__':
+    try:
+        f=CoopSwitchesWithEvents.dc
+        f.init(1.5)
+    except KeyboardInterrupt:
+        f.cleanup()
 
                              
                                   

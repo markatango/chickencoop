@@ -38,8 +38,8 @@ $(document).ready(function(){
 	    });
         }); 
 	
-	$.get("http://atango.dyndns-server.com:3000/readcontrols", function(res){
-		console.log("initializing browser buttons: " + JSON.stringify(res));
+	$.get("http://atango.dyndns-server.com:3000/startdoorcontrol", function(res){
+		console.log("Starting door control: " + JSON.stringify(res));
 	});
 
 	$.get("http://atango.dyndns-server.com:3000/lasttime", function(res){

@@ -8,10 +8,7 @@ module.exports = function(app, io){
     app.get('/open', buttonCtrl.open);
     app.get('/close', buttonCtrl.close);
     app.get('/report', buttonCtrl.report);
-//    app.get('/upperlim', buttonCtrl.upperlim);
-//    app.get('/lowerlim', buttonCtrl.lowerlim);
     app.post('/coopevents', buttonCtrl.coopevents);
-    app.get('/readcontrols',buttonCtrl.readButtons);
-    /*app.get('/ntptime', buttonCtrl.ntptime);*/
+    app.get('/startdoorcontrol',buttonCtrl.startdoorcontrol);
     app.get('/test',buttonCtrl.test);
 }

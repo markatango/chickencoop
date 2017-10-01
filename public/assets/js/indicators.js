@@ -24,12 +24,12 @@ socket.on('doorclosetime', function(msg){
 	$('#doorclosetime').val(msg);
 });
 
-socket.on('checkUPlim', function(bool){
-	$('#ULS').prop('checked', bool);
+socket.on('checkUPlim', function(b){
+	$('#ULS').prop('checked', b);
 });
 
-socket.on('checkDNlim', function(bool){
-	$('#LLS').prop('checked', bool);
+socket.on('checkDNlim', function(b){
+	$('#LLS').prop('checked', b);
 });
 
 socket.on('checkLocalUp', function(b){
@@ -37,11 +37,11 @@ socket.on('checkLocalUp', function(b){
 	$('#UPS').prop('checked', b);
 });
 
-socket.on('checkLocalSt', function(bool){
-	$('#STS').prop('checked', bool);
+socket.on('checkLocalSt', function(b){
+	$('#STS').prop('checked', b);
 });
-socket.on('checkLocalDn', function(bool){
-	$('#DNS').prop('checked', bool);
+socket.on('checkLocalDn', function(b){
+	$('#DNS').prop('checked', b);
 });
 
 socket.on('clockReadout', function(ccTime){

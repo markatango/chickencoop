@@ -132,6 +132,7 @@ module.exports = function(io, cron) {
 
     	},// create
 
+
 	lasttime : function(req, res, next){
 		Time.find().sort({created : -1}).limit(1).exec(function(err,time){
 			res.send(time);
