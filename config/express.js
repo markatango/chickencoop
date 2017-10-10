@@ -8,6 +8,8 @@ var config = require('./config'),
     flash = require('connect-flash'),
     path = require('path'),
     clockEvent = require('../app/js/clockEvent');
+
+
 	   
 module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file
     var app = express();
@@ -23,7 +25,24 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
 
     require('../app/js/startClocker').start(io);
     var cors = require('../app/custom_middleware/cors');
+
+    // set up log to file
+    var rfs = require('rotating-file-stream');
+    var fs = require('fs');
+    var logDirectory = path.join(__dirname, 'log');
+    
+    
+    fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+    console.log("Log directory: " + logDirectory);
+
+    var accessLogStream = rfs('access.log', {
+        interval: '1d',
+        path: logDirectory
+    });
+
+    app.use(morgan('combined', {stream: accessLogStream}));
     app.use(morgan('dev'));
+
     app.use(cors);
     
     /*if(process.env.NODE_ENV == 'development'){

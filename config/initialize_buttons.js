@@ -1,9 +1,12 @@
 
 const spawn = require('child_process').spawn;
+var path = require('path');
 
 module.exports = function(io){
    console.log("initializing buttons");
-   var process = spawn('python', ['./py/coopSwitchesWithEvents.py','initialize']);
+   var coopSwitchesWithEventsScriptPath = path.join(__dirname, '../', 'py/coopSwitchesWithEvents.py');
+
+   var process = spawn('python', [coopSwitchesWithEventsScriptPath,'initialize']);
 
    
    process.stdout.on('data', function(data){

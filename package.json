@@ -23,6 +23,7 @@
     "node-cron": "^1.1.3",
     "node-stopwatch": "0.0.1",
     "pug": "^2.0.0-beta6",
+    "rotating-file-stream": "^1.3.2",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.7.2"
   }

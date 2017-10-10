@@ -15,7 +15,7 @@ class CoopSwitchesWithEvents:
     
     def __init__(self, event):
         self.e = event
-        CoopSwitchesWithEvents.dc.init(1.5)     
+        CoopSwitchesWithEvents.dc.init(1.0)     
         CoopSwitchesWithEvents.currSwState = CoopSwitchesWithEvents.dc.readSws()
 
     def loop(self):     
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 if __name__ == '__main__':
     try:
         f=CoopSwitchesWithEvents.dc
-        f.init(1.5)
+        f.init(1.0)
     except KeyboardInterrupt:
         f.cleanup()
 

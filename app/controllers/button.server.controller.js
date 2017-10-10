@@ -25,7 +25,14 @@ const getErrorMessage = function(err){
 };
 
 module.exports = function(io) {
-  
+  const doStrings = require('../js/doorOpStrings');
+  var motorActionScriptPath = path.join(__dirname, '../..', 'py/motorAction.py');
+  var timerAScriptPath = path.join(__dirname, '../..', 'py/a.py');
+  var timerBScriptPath = path.join(__dirname, '../..', 'py/b.py');
+  var timerCScriptPath = path.join(__dirname, '../..', 'py/c.py');
+  var helloScriptPath = path.join(__dirname, '../..', 'py/hello.py');
+  var coopSwitchesWithEventsScriptPath = path.join(__dirname, '../..', 'py/coopSwitchesWithEvents.py');
+
     return {
 
 	home : function(req, res){
@@ -43,7 +50,8 @@ module.exports = function(io) {
 	open : function(req, res){
 
 	//spawns a python script with __name__ == '__main__'
-	    var process = spawn('python', ['./py/motorAction.py', JSON.stringify(doStrings.doorOps.UP.door_op)]);
+	    
+	    var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.UP.door_op)]);
 	    var resp = ''
             process.stdout.on('data', function(data){
                 var msg = "Door open command: " + `${data}`;
@@ -57,8 +65,8 @@ module.exports = function(io) {
             res.end(resp)
 
 
-	    
-//	    var timer = spawn('python', ['./py/a.py']);
+
+//	    var timer = spawn('python', [timerAScriptPath]);
 //	    
 //	    timer.stdout.on('data', function(data){
 //		var timerres = `${data}`
@@ -79,7 +87,7 @@ module.exports = function(io) {
 
 	close : function(req, res){
   
-	    var process = spawn('python', ['./py/motorAction.py', JSON.stringify(doStrings.doorOps.DOWN.door_op)]);
+	    var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.DOWN.door_op)]);
 	    var resp = ''
             process.stdout.on('data', function(data){
                 var msg = "Door close command: " + `${data}`;
@@ -92,7 +100,7 @@ module.exports = function(io) {
 	    });
             res.end(resp)
 
-//	    var timer = spawn('python', ['./py/a.py'])
+//	    var timer = spawn('python', [timerAScriptPath])
 	    
 //	    timer.stdout.on('data', function(data){
 //		var timerres = `${data}`
@@ -112,7 +120,7 @@ module.exports = function(io) {
         },
 
 	report : function(req, res){
-            var process = spawn('python', ['./py/hello.py']);
+            var process = spawn('python', [helloScriptPath]);
 	    
             process.stdout.on('data', function(data){
                 console.log(`${data}`);
@@ -129,7 +137,7 @@ module.exports = function(io) {
 //		console.log("Upper limit reached");
 //		res.end('upperlim');
 //	
-//		var timer = spawn('python', ['./py/b.py'])
+//		var timer = spawn('python', [timerBScriptPath])
 //		
 //		timer.stdout.on('data', function(data){
 //			var timerres = `${data}`
@@ -197,6 +205,7 @@ module.exports = function(io) {
 			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
 			io.emit('checkUPlim', true);
 			io.emit('checkDNlim', false);
+
 		} else if(msgj["DNLIM"] == 1) {
 			elapsed["milliseconds"] = stopwatch.elapsedMilliseconds;
 			elapsed["seconds"] = stopwatch.elapsedSeconds;
@@ -207,6 +216,7 @@ module.exports = function(io) {
 		 	io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
 			io.emit('checkUPlim', false);
 			io.emit('checkDNlim', true);
+
 		} else {
 			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
 			io.emit('checkUPlim', false);
@@ -219,7 +229,7 @@ module.exports = function(io) {
 	startdoorcontrol : function(req, res){
 	   var spawn = require('child_process').spawn;
 	   
-	   var process = spawn('python', ['./py/coopSwitchesWithEvents.py']);
+	   var process = spawn('python', [coopSwitchesWithEventsScriptPath]);
 	   process.stdout.on('data', function(data){
 	        var msg = `${data}`;
 		console.log("Switch status: " + msg);
@@ -270,7 +280,7 @@ module.exports = function(io) {
 	},
 
 	ntptime : function(req, res){
-	        var process = spawn('python', ['./py/c.py']);
+	        var process = spawn('python', [timerCScriptPath]);
 		process.stdout.on('data', function(data){
 		   console.log(`${data}`);
 		   res.end(`${data}`);

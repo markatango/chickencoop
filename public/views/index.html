@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <!-- Bootstrap metas -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-   
+    
     <meta name="description" content="Raspberry pi Chickencoop Controller">
     <meta name="author" content="Mark Rodighiero">
 
@@ -36,7 +37,7 @@
 	<!-- ****** faviconit.com favicons ****** -->
 
     <!-- Date picker font -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <!-- <link href="css/bootstrap-material-datetimepicker.css" rel="stylesheet"> -->
 
     <!-- Bootstrap core CSS -->
@@ -121,7 +122,7 @@
 								</div>			
 								<!-- <div class="col-md-1"></div> -->
 								<div class="col-md-8">
-									<div class="col-md-12">									
+								<!-- 	<div class="col-md-12">									
 										<h4>Coop switch status</h4>
 									
 										<label for="ULS">
@@ -152,7 +153,28 @@
 											<span>Down</span>
 											<span class="dot" id="DNS"><span class="dot-inner"></span></span>
 										</label> 
-									</div>	
+									</div>	-->
+
+					<div class="col-sm-2"></div>
+					<div class="col-sm-4"><span style="text-align: center">Limits</span></div>
+					<div class="col-sm-6"><span style="text-align: center">Switches</span></div>
+
+					<div class="col-sm-2"></div>
+					<div class="col-sm-2"><span style="text-align: center">Up</span></div>
+					<div class="col-sm-2"><span>Down</span></div>
+					<div class="col-sm-2"><span style="text-align: center">   Up</span></div>
+					<div class="col-sm-2"><span>Stop</span></div>
+					<div class="col-sm-2"><span>Down</span></div>
+<hr />
+					<div class="col-sm-2"></div>
+					<div class="col-sm-2"><span class="dot" id="ULS"><span class="dot-inner"></span></span></div>
+					<div class="col-sm-2"><span class="dot" id="LLS"><span class="dot-inner"></span></span></div>
+					<div class="col-sm-2"><span class="dot" id="UPS"><span class="dot-inner"></span></span></div>
+					<div class="col-sm-2"><span class="dot" id="STS"><span class="dot-inner"></span></span></div>
+					<div class="col-sm-2"><span class="dot" id="DNS"><span class="dot-inner"></span></span></div>
+					
+
+
 								</div> <!-- col-md-8 -->
 							</div> <!-- row -->
 							<div class="row"></div>
@@ -168,7 +190,7 @@
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=2&onestep=5&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=0&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-up"></span></a>
 					
 							</div>
@@ -177,11 +199,11 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-2">
-								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=6&onestep=5&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=4&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=4&onestep=5&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=6&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-right"></span></a>
 							</div>
 						</div>
@@ -189,7 +211,7 @@
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=0&onestep=5&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9001/decoder_control.cgi?command=2&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-down"></span></a>
 							</div>
 							<div class="col-md-4"></div>
@@ -199,7 +221,7 @@
 
 					</div>
 					<div class="col-md-8">
-						<img class="vs" alt="" src="http://atango.dyndns-server.com:9001/videostream.cgi?user=guest&pwd=" height="400px" width="530px">
+						<img class="vs" alt="" src="http://atango.dyndns-server.com:9001/videostream.cgi?user=ggvisitor&pwd=g45NPoo6" height="400px" width="530px">
 					</div>
 				</div>
 				<div class="row">
@@ -209,7 +231,7 @@
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=0&onestep=2&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=0&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-up"></span></a>
 					
 							</div>
@@ -217,11 +239,11 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-2">
-								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=4&onestep=2&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=4&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=6&onestep=2&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=6&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-right"></span></a>
 							</div>
 						</div>
@@ -229,7 +251,7 @@
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=2&onestep=2&user=guest&pwd=" target="bres"
+								<a href="http://atango.dyndns-server.com:9004/decoder_control.cgi?command=2&onestep=2&user=ggvisitor&pwd=g45NPoo6" target="bres"
 				 class="btn btn-success cam-button"><span class="glyphicon glyphicon-chevron-down"></span></a>
 		
 					</div>
@@ -242,7 +264,7 @@
 
 					</div>
 					<div class="col-md-8">
-						<img class="vs" alt="" src="http://atango.dyndns-server.com:9004/videostream.cgi?user=guest&pwd=" height="400px" width="530px">
+						<img class="vs" alt="" src="http://atango.dyndns-server.com:9004/videostream.cgi?user=ggvisitor&pwd=g45NPoo6" height="400px" width="530px">
 
 					</div>
 				</div>
