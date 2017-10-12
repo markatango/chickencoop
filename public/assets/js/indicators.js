@@ -58,4 +58,16 @@ socket.on('checkLocalDn', function(b){
 	colorDot(b, '#DNS');
 });
 
+socket.on('checkLocalInUp', function(b){
+	colorDot(b, '#UPI');
+});
+
+socket.on('checkLocalInSt', function(b){
+	colorDot(b, '#STI');
+});
+
+socket.on('checkLocalInDn', function(b){
+	colorDot(b, '#DNI');
+});
+
 

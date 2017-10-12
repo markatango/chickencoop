@@ -3,6 +3,7 @@ const spawn = require('child_process').spawn;
 const path = require('path');
 const doStrings = require('../js/doorOpStrings');
 const Stopwatch = require('node-stopwatch').Stopwatch;
+var IOStatusEmitter = require("../js/IOStatusEmitter");
 
 const getErrorMessage = function(err){
     var message = '';
@@ -25,13 +26,12 @@ const getErrorMessage = function(err){
 };
 
 module.exports = function(io) {
-  const doStrings = require('../js/doorOpStrings');
-  var motorActionScriptPath = path.join(__dirname, '../..', 'py/motorAction.py');
-  var timerAScriptPath = path.join(__dirname, '../..', 'py/a.py');
-  var timerBScriptPath = path.join(__dirname, '../..', 'py/b.py');
-  var timerCScriptPath = path.join(__dirname, '../..', 'py/c.py');
-  var helloScriptPath = path.join(__dirname, '../..', 'py/hello.py');
-  var coopSwitchesWithEventsScriptPath = path.join(__dirname, '../..', 'py/coopSwitchesWithEvents.py');
+  const motorActionScriptPath = path.join(__dirname, '../..', 'py/motorAction.py');
+  const timerAScriptPath = path.join(__dirname, '../..', 'py/a.py');
+  const timerBScriptPath = path.join(__dirname, '../..', 'py/b.py');
+  const timerCScriptPath = path.join(__dirname, '../..', 'py/c.py');
+  const helloScriptPath = path.join(__dirname, '../..', 'py/hello.py');
+  const coopSwitchesWithEventsScriptPath = path.join(__dirname, '../..', 'py/coopSwitchesWithEvents.py');
 
     return {
 
@@ -39,16 +39,16 @@ module.exports = function(io) {
 	          var filename = path.join(__dirname, '../..', 'public/views/index.html'); 
       		  res.sendFile(filename, function(err){
                       if(err){
-                         console.log(err);
+                         console.log("home error: " + err);
                          res.status(err.status).end();
                       } else {
                          console.log('Sent: ' + filename);
+			res.end();
 		      }
                   });
     	},
 	
 	open : function(req, res){
-
 	//spawns a python script with __name__ == '__main__'
 	    
 	    var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.UP.door_op)]);
@@ -59,7 +59,7 @@ module.exports = function(io) {
 	        resp += data
             });
             process.stderr.on('data', function(data){
-		console.log(`${data}`);
+		console.log("open error: " + `${data}`);
 	        resp += data
 	    });
             res.end(resp)
@@ -80,7 +80,7 @@ module.exports = function(io) {
 //	        io.emit('timelog', timerres);	
 //	    });
 //	    timer.stderr.on('data', function(data){
-//			console.log(`${data}`);
+//			console.log("timer error: " + `${data}`);
 //               	res.end(data);
 //	    });
 	},
@@ -95,7 +95,7 @@ module.exports = function(io) {
 	        resp += data
             });
 	    process.stderr.on('data', function(data){
-		console.log(`${data}`);
+		console.log("close error: " + `${data}`);
  	        resp += data
 	    });
             res.end(resp)
@@ -127,16 +127,16 @@ module.exports = function(io) {
                 res.end(data);
                 });
 	    process.stderr.on('data', function(data){
-		console.log(`${data}`);
+		console.log("report error: " + `${data}`);
                 res.end(data);
 	    });
 
         },
 
-//	upperlim : function(req, res){
-//		console.log("Upper limit reached");
-//		res.end('upperlim');
-//	
+	upperlim : function(req, res){
+		console.log("Upper limit reached");
+		res.end('upperlim');
+
 //		var timer = spawn('python', [timerBScriptPath])
 //		
 //		timer.stdout.on('data', function(data){
@@ -155,75 +155,22 @@ module.exports = function(io) {
   //              	res.end(data);
 //	        });
 		
-//     },
+     },
 	
 	coopevents : function(req, res){
-     		var elapsed = {'seconds' : '0', 'milliseconds' : 0};
-		var stopwatch = Stopwatch.create();
+	    //var elapsed = {'seconds' : '0', 'milliseconds' : 0};
+	    //var stopwatch = Stopwatch.create();
 
-		var msg = req.body.query;
-		console.log("Coop event (in coopevents): " + msg);
-	
-		//io.emit('doorstatemsg', msg);
-		//io.emit('doorprogmsg', "sponges");
-		//io.emit('checkLocalUp', true);
-		var msgj = JSON.parse(msg);
-		console.log("stringified: " + JSON.stringify(msgj));
+	    var msg = req.body.query;
+	    console.log("Coop event (in coopevents): " + msg);
 
-		if(msgj["UPS"] == 1) {
-			stopwatch.start();
-			console.log("Local up switch pushed: " + msgj["UPS"]);
-			io.emit('checkLocalUp', true);
-			stopwatch.stop();
-			stopwatch.reset();
-		} else {
-			io.emit('checkLocalUp', false);
-		}
-		if(msgj["STS"] == 1) {
-			console.log("Local stop switch pushed: " + msgj["STS"]);
-			io.emit('checkLocalSt', true);
-		} else {
-			io.emit('checkLocalSt', false);
-		}
-		if(msgj["DNS"] == 1) {
-			stopwatch.start();
-			console.log("Local down switch pushed: "+ msgj["DNS"]);
-			io.emit('checkLocalDn', true);
-			stopwatch.stop();
-			stopwatch.reset();
-		} else {
-			io.emit('checkLocalDn', false);
-		}
-		if(msgj["UPLIM"] == 1) {
-			
-			elapsed["milliseconds"] = stopwatch.elapsedMilliseconds;
-			elapsed["seconds"] = stopwatch.elapsedSeconds;
-			stopwatch.stop();
-
-			io.emit('dooroptime', JSON.stringify(elapsed["milliseconds"]/1000));
-			io.emit('timelog', elapsed);
-			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
-			io.emit('checkUPlim', true);
-			io.emit('checkDNlim', false);
-
-		} else if(msgj["DNLIM"] == 1) {
-			elapsed["milliseconds"] = stopwatch.elapsedMilliseconds;
-			elapsed["seconds"] = stopwatch.elapsedSeconds;
-			stopwatch.stop();
-
-			io.emit('dooroptime', JSON.stringify(elapsed["milliseconds"]/1000));
-			io.emit('timelog', elapsed);
-		 	io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
-			io.emit('checkUPlim', false);
-			io.emit('checkDNlim', true);
-
-		} else {
-			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
-			io.emit('checkUPlim', false);
-			io.emit('checkDNlim', false);
-		}
-	
-	        res.end("coopevents.res: " + req.body.query);
+	    //io.emit('doorstatemsg', msg);
+	    //io.emit('doorprogmsg', "sponges");
+	    //io.emit('checkLocalUp', true);
+	    var msgj = JSON.parse(msg);
+	    console.log("stringified: " + JSON.stringify(msgj));
+	    IOStatusEmitter(io, msgj);
+	    res.end("coopevents.res: " + req.body.query);
       },
 	
 	startdoorcontrol : function(req, res){
@@ -232,51 +179,19 @@ module.exports = function(io) {
 	   var process = spawn('python', [coopSwitchesWithEventsScriptPath]);
 	   process.stdout.on('data', function(data){
 	        var msg = `${data}`;
-		console.log("Switch status: " + msg);
+		console.log("startdoorcontrol: Switch status: " + msg);
 		res.end("Switch status: " + msg);
-
 		io.emit('doorprogmsg', "");
-
 		var msgj = JSON.parse(msg);
-		if(msgj["UPLIM"] == 1) {
-			console.log('msgj["UPLIM"] == 1');
-			io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
-			io.emit('checkUPlim', true);
-		} else if(msgj["DNLIM"] == 1) {
-			console.log('msgj["DNLIM"] == 1');
-		 	io.emit('doorstatemsg', doStrings.doorOps.DNLIM.doorStateMsg);	
-			io.emit('checkDNlim', true);
-		} else {
-			console.log('msgj["DNLIM"] == 0 and msgj["UPLIM"] == 0');
-			io.emit('doorstatemsg', doStrings.doorOps.MID.doorStateMsg);
-		}
-		if(msgj["UPS"] == 1) {
-			console.log("Local up switch pushed");
-			io.emit('checkLocalUp', true);
-		} else {
-			io.emit('checkLocalUp', false);
-		}
-		if(msgj["STS"] == 1) {
-			console.log("Local stop switch pushed");
-			io.emit('checkLocalSt', true);
-		} else {
-			io.emit('checkLocalSt', false);
-
-		}
-		if(msgj["DNS"] == 1) {
-			console.log("Local down switch pushed");
-			io.emit('checkLocalDn', true);
-		} else {
-			io.emit('checkLocalDn', false);
-		}
-
-
-	   }); //process.stdout.on	
+		IOStatusEmitter(io, msgj);
+		
+	   }); //process.stdout.on
+	
 	   process.stderr.on('data', function(data){
-		console.log(`${data}`);
-  
-              res.end(data);
-	    });
+		console.log("startdoorcontrol error: " + `${data}`);
+	        res.end(data);
+	   });
+	    
 	},
 
 	ntptime : function(req, res){

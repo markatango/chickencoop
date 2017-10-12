@@ -19,7 +19,8 @@ exports.doorOps ={ "UP" : {"door_op" : {"door" : "up", "bQuit" : "False"},
 		   	   },
 
 		"MID" : {
-			   "doorStateMsg" : "In middle of travel"
+			   "doorStateMsg" : "In middle of travel",
+			   "doorProgMsg" : ""
 		   	   }
 
 		 }

@@ -9,14 +9,12 @@ var config = require('./config'),
     path = require('path'),
     clockEvent = require('../app/js/clockEvent');
 
-
-	   
 module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file
     var app = express();
     var server = http.createServer(app);
     var io = require('socket.io')(server);
 
-    require('./initialize_buttons')(io);
+    require('../app/js/initialize_buttons')(io);
 
     io.on('connection', function(socket){
 	  console.log('a user connected');
@@ -29,7 +27,7 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
     // set up log to file
     var rfs = require('rotating-file-stream');
     var fs = require('fs');
-    var logDirectory = path.join(__dirname, 'log');
+    var logDirectory = path.join(__dirname, '..', 'log');
     
     
     fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)

@@ -33,7 +33,7 @@ class DoorControl:
         sleep(DoorControl.hold_time)
         gp.output(mbit, gp.HIGH)
         print "Door control bit: " + str(mbit)
-
+ 
     @classmethod
     def motorOp(obj, op):
         if(op == 'up'): DoorControl.motorAction(DoorControl.Uout)
@@ -46,7 +46,10 @@ class DoorControl:
                 "DNS" : gp.input(DoorControl.Din),
                 "UPLIM" : gp.input(DoorControl.u_lim),
                 "DNLIM" : gp.input(DoorControl.d_lim),
-                "STS" :gp.input(DoorControl.Sin)
+                "STS" : gp.input(DoorControl.Sin),
+                "UPI" : not gp.input(DoorControl.Uout),
+                "STI" : not gp.input(DoorControl.Sout),
+                "DNI" : not gp.input(DoorControl.Dout)
                 }
     
     @classmethod
