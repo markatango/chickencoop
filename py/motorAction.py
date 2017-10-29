@@ -36,9 +36,11 @@ class MotorAction:
             ws.close()
 
 if __name__ == '__main__':
+    mlog = logging.getLogger(__name__)
     
     ma = MotorAction(sys.argv[1])
-    print sys.argv[1]
+    mlog.info("motorAction.py received: " + sys.argv[1])
+    print "motorAction.py received: " + sys.argv[1]
     
    
                

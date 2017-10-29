@@ -170,27 +170,20 @@ module.exports = function(io) {
 	    res.end("coopevents.res: " + msg);
       },
 
-
-	
 	updateio : function(req, res){
 	   var spawn = require('child_process').spawn;
 	   
 	   var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.READ.door_op)]);
-//	   process.stdout.on('data', function(data){
-//	        var msg = `${data}`;
-//		console.log("startdoorcontrol: Switch status: " + msg);
-//		res.end("startdoorcontrol Switch status: " + msg);
-//		io.emit('doorprogmsg', "");
-//		var msgj = JSON.parse(msg);
-//		IOStatusEmitter(io, msgj);
-//		
-//	   }); //process.stdout.on
-//	
+	   process.stdout.on('data', function(data){
+	        var msg = `${data}`;
+		console.log("updateio: argument: " + msg);
+		res.end("updateio argument: " + msg);		
+	   }); //process.stdout.on
+	
 //	   process.stderr.on('data', function(data){
 //		console.log("startdoorcontrol error: " + `${data}`);
 //	        res.end(data);
-//	   });
-//	    
+//	   });	    
 	},
 
 	ntptime : function(req, res){
@@ -200,6 +193,7 @@ module.exports = function(io) {
 		   res.end(`${data}`);
 	        });
     	},
+
 	test : function(req,res){
 		console.log("in test");
 		res.end("test ended");

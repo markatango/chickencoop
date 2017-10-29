@@ -136,6 +136,7 @@ class coopControl:
  
     @classmethod
     def scanWebsws(obj):
+        swslock = thread.allocate_lock()
         obj.logger = logging.getLogger(__name__)
         obj.logger.info("webcontrol scanWebsws launched")
         while True:
@@ -153,13 +154,14 @@ class coopControl:
                     obj.logger.info("invalid web button state")
                     sws = coopControl.readIOs()
                     swsJSON = json.dumps(sws)
+                    obj.logger.info("Initial IO read result: " + swsJSON)
                     url = 'http://localhost:3000/coopevents'
                     try:
                         thePoster = poster.Poster(url, swsJSON)
                         thePoster.postStatus()
                     except IOError:
-                        with rioslock:
-                            print "Server not up"
+                        with swslock:
+                            obj.logger.info("Server not up yet on page IO initialization")
 
 
     @classmethod
@@ -195,61 +197,59 @@ if __name__ == '__main__':
 
     outerLock = thread.allocate_lock()
     logger = logging.getLogger(__name__)
-    if(len(sys.argv) == 2):
-        if(sys.argv[1] == 'initialize'):
-            logger.debug("instantiating coopControl")
-            e = multiprocessing.Event()
-            obj = coopControl(e)
-            
-            if not coopControl.initialized:
-                logger.debug("setting 'initialized' flag")
-                coopControl.initialized = True
-                logger.debug("configuring independent process, 'Switch watcher'")
-                w1 = multiprocessing.Process(name='Switch watcher',
-                                             target = coopControl.reportIOStatus,
-                                             args=())
-                
-                logger.debug("configuring independent process, 'Scan coop IOs'")
-                w2 = multiprocessing.Process(name='Scan switches',
-                                             target = coopControl.scanIOs,
-                                             args=())
-                
-                logger.debug("configuring independent process, 'Scan web buttons'")
-                w3 = multiprocessing.Process(name='Scan switches',
-                                             target = coopControl.scanWebsws,
-                                             args=())
-                
-                logger.debug("Launching independent prcesses")
-                w1.start()
-                w2.start()
-                w3.start()
-
-                try:
-                    logging.debug("in main 'readIOs()' loop")
-                    while 1:
-                        if e.is_set():
-                            with outerLock:
-                                print "io status change: " + json.dumps(obj.readIOs())
-                            e.clear()
-                        pass
-                    
-                except KeyboardInterrupt:
-                    obj.close()
-                    logger.info("Terminating threads...")
-                    w1.terminate()
-                    w2.terminate()
-                    w3.terminate()
-                    logger.info("Cleaned up GPIO...")
-
-    else:
-        with outerLock:
-            logger.debug("Routine reading swtitches using door control class method")
-            print json.dumps(coopControl.readIOs())
-
+    logger.debug("instantiating coopControl")
+    e = multiprocessing.Event()
+    obj = coopControl(e)
     
+    if not coopControl.initialized:
+        logger.info("setting coopControl 'initialized' flag")
+        coopControl.initialized = True
+        logger.info("configuring independent process, 'Switch watcher'")
+        w1 = multiprocessing.Process(name='Switch watcher',
+                                     target = coopControl.reportIOStatus,
+                                     args=())
+        
+        logger.info("configuring independent process, 'Scan coop IOs'")
+        w2 = multiprocessing.Process(name='Scan switches',
+                                     target = coopControl.scanIOs,
+                                     args=())
+        
+        logger.info("configuring independent process, 'Scan web buttons'")
+        w3 = multiprocessing.Process(name='Scan switches',
+                                     target = coopControl.scanWebsws,
+                                     args=())
+        
+        logger.info("Launching independent prcesses")
+        w1.start()
+        w2.start()
+        w3.start()
 
-                             
-                                  
+        try:
+            logging.debug("in main 'readIOs()' loop")
+            while 1:
+                if e.is_set():
+                    with outerLock:
+                        print "io status change: " + json.dumps(obj.readIOs())
+                    e.clear()
+                pass
+            
+        except KeyboardInterrupt:
+            obj.close()
+            logger.info("Terminating threads...")
+            w1.terminate()
+            w2.terminate()
+            w3.terminate()
+            logger.info("Cleaned up GPIO...")
+
+##    else:
+##        with outerLock:
+##            logger.debug("Routine reading swtitches using door control class method")
+##            print json.dumps(coopControl.readIOs())
+##
+##    
+##
+##                             
+##                                  
         
 
     
