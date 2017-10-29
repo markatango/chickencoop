@@ -9,6 +9,6 @@ module.exports = function(app, io){
     app.get('/close', buttonCtrl.close);
     app.get('/report', buttonCtrl.report);
     app.post('/coopevents', buttonCtrl.coopevents);
-    app.get('/startdoorcontrol',buttonCtrl.startdoorcontrol);
+    app.get('/updateio',buttonCtrl.updateio);
     app.get('/test',buttonCtrl.test);
 }

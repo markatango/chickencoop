@@ -164,34 +164,33 @@ module.exports = function(io) {
 	    var msg = req.body.query;
 	    console.log("Coop event (in coopevents): " + msg);
 
-	    //io.emit('doorstatemsg', msg);
-	    //io.emit('doorprogmsg', "sponges");
-	    //io.emit('checkLocalUp', true);
 	    var msgj = JSON.parse(msg);
 	    console.log("stringified: " + JSON.stringify(msgj));
 	    IOStatusEmitter(io, msgj);
-	    res.end("coopevents.res: " + req.body.query);
+	    res.end("coopevents.res: " + msg);
       },
+
+
 	
-	startdoorcontrol : function(req, res){
+	updateio : function(req, res){
 	   var spawn = require('child_process').spawn;
 	   
-	   var process = spawn('python', [coopSwitchesWithEventsScriptPath]);
-	   process.stdout.on('data', function(data){
-	        var msg = `${data}`;
-		console.log("startdoorcontrol: Switch status: " + msg);
-		res.end("Switch status: " + msg);
-		io.emit('doorprogmsg', "");
-		var msgj = JSON.parse(msg);
-		IOStatusEmitter(io, msgj);
-		
-	   }); //process.stdout.on
-	
-	   process.stderr.on('data', function(data){
-		console.log("startdoorcontrol error: " + `${data}`);
-	        res.end(data);
-	   });
-	    
+	   var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.READ.door_op)]);
+//	   process.stdout.on('data', function(data){
+//	        var msg = `${data}`;
+//		console.log("startdoorcontrol: Switch status: " + msg);
+//		res.end("startdoorcontrol Switch status: " + msg);
+//		io.emit('doorprogmsg', "");
+//		var msgj = JSON.parse(msg);
+//		IOStatusEmitter(io, msgj);
+//		
+//	   }); //process.stdout.on
+//	
+//	   process.stderr.on('data', function(data){
+//		console.log("startdoorcontrol error: " + `${data}`);
+//	        res.end(data);
+//	   });
+//	    
 	},
 
 	ntptime : function(req, res){

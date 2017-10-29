@@ -10,5 +10,7 @@ module.exports = function(){
          console.log("Connected to: " + config.db);
     });
     require('../app/models/time.server.model');
+    require('../app/models/inout.server.model');
+    require('../app/models/webcontrol.server.model');
     return db;
 };

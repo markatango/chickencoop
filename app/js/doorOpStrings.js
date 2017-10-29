@@ -21,6 +21,11 @@ exports.doorOps ={ "UP" : {"door_op" : {"door" : "up", "bQuit" : "False"},
 		"MID" : {
 			   "doorStateMsg" : "In middle of travel",
 			   "doorProgMsg" : ""
-		   	   }
+		   	   },
+
+		"READ" : {"door_op" : {"door" : "read", "bQuit" : "False"},
+			   "doorStateMsg" : "Reading I/O state",
+		           "doorProgMsg" : "Door is stationary",
+		   	   "doorOpTime" : ""},
 
 		 }

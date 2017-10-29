@@ -1,4 +1,3 @@
-const doStrings = require("./doorOpStrings.js");
 const spawn = require('child_process').spawn;
 var IOStatusEmitter = require("./IOStatusEmitter");
 var path = require('path');

@@ -3,8 +3,13 @@ from time import sleep
 import multiprocessing
 import sys
 import warnings
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 class DoorControl:
+    def __init__(self, logger=None):
+        self.logger = logging.getLogger(__name__)
 
     Uin = 18
     Sin = 17
@@ -18,15 +23,26 @@ class DoorControl:
     outputs = [Uout, Sout, Dout]
     time = 2.5
     
+    
     @classmethod
     def init(obj, hold_time = 2.5):
+        obj.logger  = logging.getLogger(__name__)
+        obj.logger.info("Initializing door control....")
         DoorControl.hold_time = hold_time
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            gp.setmode(gp.BCM)
-            gp.setup(DoorControl.inputs, gp.IN)
-            gp.setup(DoorControl.outputs, gp.OUT, initial=gp.HIGH)
+            obj.gpmode = gp.getmode()
             
+            if not (gp.getmode()):
+                logging.info("RPiGPIO mode not set")
+                gp.setmode(gp.BCM)
+                gp.setup(DoorControl.inputs, gp.IN)
+                gp.setup(DoorControl.outputs, gp.OUT, initial=gp.HIGH)
+                obj.gpmode = gp.getmode()
+                logging.info("RPiGPIO mode is set to: " + str(obj.gpmode))
+                logging.info("RPiGPIO inputs and outputs configured")
+        obj.logger.info("door control initialized with hold time = " + str(hold_time))
+
     @classmethod
     def motorAction(obj, mbit):
         gp.output(mbit, gp.LOW)
@@ -54,6 +70,8 @@ class DoorControl:
     
     @classmethod
     def scanSws(obj):
+        obj.logger = logging.getLogger(__name__)
+        obj.logger.info("door control scanSws launched")
         while True:
             for ins in range(len(DoorControl.inputs[:3])):
                 if gp.input(DoorControl.inputs[ins]):
@@ -61,10 +79,15 @@ class DoorControl:
 
     @classmethod
     def close(obj):
+        obj.logger = logging.getLogger(__name__)
+        obj.logger.debug("Closing door control...")
         gp.cleanup()
+        obj.logger.debug("door control closed.")
         print "Cleaned up GPIO"
 
 if __name__ == '__main__':
+    logger = logging.getLogger(__name__)
+    logger.info("Initializing doorControl and cycling through the motor operations")
     f = DoorControl
     f.init(0.3)
     for i in range(2):
@@ -72,6 +95,8 @@ if __name__ == '__main__':
         f.motorOp(op='down')
         f.motorOp(op='stop')
     f.close()
+    logger.info("door Control cycling ended")
+   
 
                                 
 

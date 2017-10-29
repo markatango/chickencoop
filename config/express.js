@@ -14,7 +14,7 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
     var server = http.createServer(app);
     var io = require('socket.io')(server);
 
-    require('../app/js/initialize_buttons')(io);
+    //require('../app/js/initialize_buttons')(io);
 
     io.on('connection', function(socket){
 	  console.log('a user connected');
