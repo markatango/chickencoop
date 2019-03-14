@@ -15,16 +15,8 @@ function formatTime(currentTime){
 }
 
 
-function updateClock(){
-
-// NTP source
-//	$.get("http//:atango.dyndns-server.com:3000/ntptime", function(res){
-//		console.log(res);
-//	var currentTimeString = res
-
-// Local system clock source
-
+$(document).ready(function updateClock(){
 	var currentTimeString = formatTime(new Date());
 	$("#clock").html(currentTimeString);
-};
+});
 

@@ -7,6 +7,8 @@ var mongoose = require('./config/mongoose'),
 var db  = mongoose();
 var express  = require('./config/express');
 var app = express(db, cron);
+var path = require('path');
+var morgan = require('morgan');
 
 app.listen(process.env.NODE_SERVER_PORT, function(){
    console.log('Listening on port ' + process.env.NODE_SERVER_PORT + '...');

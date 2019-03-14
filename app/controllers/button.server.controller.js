@@ -165,7 +165,7 @@ module.exports = function(io) {
 	    console.log("Coop event (in coopevents): " + msg);
 
 	    var msgj = JSON.parse(msg);
-	    console.log("stringified: " + JSON.stringify(msgj));
+	    // console.log("stringified: " + JSON.stringify(msgj));
 	    IOStatusEmitter(io, msgj);
 	    res.end("coopevents.res: " + msg);
       },
