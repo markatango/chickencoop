@@ -1,9 +1,9 @@
 from twilio.rest import Client
 
 class SendSMS:
-	def __init__(self):
+	def __init__(self, auth):
 		self.account_sid = 'ACdad1cb953003df8f6eb528cab1726de3'
-		self.auth_token = 'f9653542e60222d49a43d25919dc1e31'
+		self.auth_token = auth
 		self.client = Client(self.account_sid, self.auth_token)
 		self.fromph = '+14159806275'
 		self.toph = '+16266418432'
