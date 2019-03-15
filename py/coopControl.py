@@ -10,6 +10,8 @@ import logging
 import urllib
 import dbm
 
+from sendSMS import SendSMS
+
 logging.basicConfig(level=logging.DEBUG, filename="coop.log", format='%(asctime)-15s %(message)s')
 lock = threading.RLock()
 
@@ -33,7 +35,8 @@ class coopControl:
     e = ''
     
     initialized = False
-    
+    send = SendSMS()	
+  
     def __init__(self, event, hold_time = 2.5):
         self.logger = logging.getLogger(__name__)
         coopControl.e = event
@@ -180,6 +183,7 @@ class coopControl:
                     logger.debug("CC: IO Status change, attempting to post...")
                     coopControl.currSwState = sws
                     swsJSON = json.dumps(sws)
+                    coopControl.send.send(swsJSON)
                     url = 'http://localhost:3000/coopevents'
                     if not e.is_set():
                         try:
@@ -229,7 +233,7 @@ if __name__ == '__main__':
                                      args=())
         
         logger.info("CC: configuring independent process, 'Scan web buttons'")
-        w3 = multiprocessing.Process(name='Scan switches',
+        w3 = multiprocessing.Process(name='Scan web switches',
                                      target = coopControl.scanWebsws,
                                      args=())
         

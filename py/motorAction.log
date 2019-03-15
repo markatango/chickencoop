@@ -7622,3 +7622,155 @@
 2019-03-14 04:54:49,975 MA: Received web sw input: down
 2019-03-14 04:54:49,979 MA: motorAction.py writing to websws dbm
 2019-03-14 04:54:49,988 MA: Received: {"door":"down","bQuit":"False"}
+2019-03-14 07:17:38,437 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 07:17:38,438 MA: Received web sw input: read
+2019-03-14 07:17:38,440 MA: motorAction.py writing to websws dbm
+2019-03-14 07:17:38,443 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 07:17:44,098 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 07:17:44,099 MA: Received web sw input: up
+2019-03-14 07:17:44,101 MA: motorAction.py writing to websws dbm
+2019-03-14 07:17:44,114 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 07:17:44,390 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 07:17:44,390 MA: Received web sw input: read
+2019-03-14 07:17:44,392 MA: motorAction.py writing to websws dbm
+2019-03-14 07:17:44,399 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 07:19:38,413 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 07:19:38,414 MA: Received web sw input: read
+2019-03-14 07:19:38,416 MA: motorAction.py writing to websws dbm
+2019-03-14 07:19:38,423 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 07:19:44,449 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 07:19:44,450 MA: Received web sw input: read
+2019-03-14 07:19:44,455 MA: motorAction.py writing to websws dbm
+2019-03-14 07:19:44,458 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 07:21:39,447 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 07:21:39,448 MA: Received web sw input: read
+2019-03-14 07:21:39,450 MA: motorAction.py writing to websws dbm
+2019-03-14 07:21:39,457 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 07:21:44,466 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 07:21:44,467 MA: Received web sw input: read
+2019-03-14 07:21:44,469 MA: motorAction.py writing to websws dbm
+2019-03-14 07:21:44,476 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 13:26:00,333 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 13:26:00,334 MA: Received web sw input: up
+2019-03-14 13:26:00,336 MA: motorAction.py writing to websws dbm
+2019-03-14 13:26:00,343 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 17:35:38,854 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 17:35:38,854 MA: Received web sw input: up
+2019-03-14 17:35:38,857 MA: motorAction.py writing to websws dbm
+2019-03-14 17:35:38,865 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 17:35:39,522 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 17:35:39,523 MA: Received web sw input: up
+2019-03-14 17:35:39,525 MA: motorAction.py writing to websws dbm
+2019-03-14 17:35:39,532 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 17:35:41,539 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 17:35:41,540 MA: Received web sw input: read
+2019-03-14 17:35:41,543 MA: motorAction.py writing to websws dbm
+2019-03-14 17:35:41,550 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 17:35:41,671 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 17:35:41,672 MA: Received web sw input: up
+2019-03-14 17:35:41,674 MA: motorAction.py writing to websws dbm
+2019-03-14 17:35:41,682 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 17:35:41,693 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 17:35:41,694 MA: Received web sw input: up
+2019-03-14 17:35:41,695 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-14 17:35:41,697 MA: motorAction.py writing to websws dbm
+2019-03-14 17:35:41,696 MA: Received web sw input: up
+2019-03-14 17:35:41,699 MA: motorAction.py writing to websws dbm
+2019-03-14 17:35:41,705 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 17:35:41,705 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-14 17:37:41,549 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 17:37:41,549 MA: Received web sw input: read
+2019-03-14 17:37:41,552 MA: motorAction.py writing to websws dbm
+2019-03-14 17:37:41,559 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 17:39:42,766 MA: motorAction init params: {"bQuit": "False", "door": "read"}
+2019-03-14 17:39:42,767 MA: Received web sw input: read
+2019-03-14 17:39:42,769 MA: motorAction.py writing to websws dbm
+2019-03-14 17:39:42,780 MA: Received: {"door":"read","bQuit":"False"}
+2019-03-14 19:45:01,139 MA: motorAction init params: {"bQuit": "False", "door": "down"}
+2019-03-14 19:45:01,140 MA: Received web sw input: down
+2019-03-14 19:45:01,142 MA: motorAction.py writing to websws dbm
+2019-03-14 19:45:01,151 MA: Received: {"door":"down","bQuit":"False"}
+2019-03-15 07:21:59,771 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:21:59,771 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:21:59,774 MA: Received web sw input: up
+2019-03-15 07:21:59,774 MA: Received web sw input: up
+2019-03-15 07:21:59,780 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:21:59,781 MA: Received web sw input: up
+2019-03-15 07:21:59,841 MA: motorAction.py writing to websws dbm
+2019-03-15 07:21:59,841 MA: motorAction.py writing to websws dbm
+2019-03-15 07:21:59,841 MA: motorAction.py writing to websws dbm
+2019-03-15 07:21:59,908 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:21:59,908 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:21:59,908 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:22:01,499 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:22:01,500 MA: Received web sw input: up
+2019-03-15 07:22:01,501 MA: motorAction.py writing to websws dbm
+2019-03-15 07:22:01,505 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:22:05,562 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:22:05,562 MA: Received web sw input: up
+2019-03-15 07:22:05,564 MA: motorAction.py writing to websws dbm
+2019-03-15 07:22:05,571 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:25:12,225 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:25:12,225 MA: Received web sw input: up
+2019-03-15 07:25:12,228 MA: motorAction.py writing to websws dbm
+2019-03-15 07:25:12,236 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:27:32,061 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:27:32,061 MA: Received web sw input: up
+2019-03-15 07:27:32,063 MA: motorAction.py writing to websws dbm
+2019-03-15 07:27:32,070 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:28:02,080 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:28:02,081 MA: Received web sw input: up
+2019-03-15 07:28:02,083 MA: motorAction.py writing to websws dbm
+2019-03-15 07:28:02,090 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:29:01,010 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:29:01,010 MA: Received web sw input: up
+2019-03-15 07:29:01,012 MA: motorAction.py writing to websws dbm
+2019-03-15 07:29:01,021 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:30:27,862 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:30:27,863 MA: Received web sw input: up
+2019-03-15 07:30:27,865 MA: motorAction.py writing to websws dbm
+2019-03-15 07:30:27,872 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:31:27,164 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:31:27,164 MA: Received web sw input: up
+2019-03-15 07:31:27,166 MA: motorAction.py writing to websws dbm
+2019-03-15 07:31:27,172 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:32:54,181 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:32:54,182 MA: Received web sw input: up
+2019-03-15 07:32:54,186 MA: motorAction.py writing to websws dbm
+2019-03-15 07:32:54,196 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:32:56,428 MA: motorAction init params: {"bQuit": "False", "door": "down"}
+2019-03-15 07:32:56,428 MA: Received web sw input: down
+2019-03-15 07:32:56,431 MA: motorAction.py writing to websws dbm
+2019-03-15 07:32:56,435 MA: Received: {"door":"down","bQuit":"False"}
+2019-03-15 07:32:57,518 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:32:57,519 MA: Received web sw input: up
+2019-03-15 07:32:57,521 MA: motorAction.py writing to websws dbm
+2019-03-15 07:32:57,525 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:34:20,084 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:34:20,085 MA: Received web sw input: up
+2019-03-15 07:34:20,087 MA: motorAction.py writing to websws dbm
+2019-03-15 07:34:20,094 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:34:21,396 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:34:21,397 MA: Received web sw input: up
+2019-03-15 07:34:21,399 MA: motorAction.py writing to websws dbm
+2019-03-15 07:34:21,402 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:34:22,284 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:34:22,285 MA: Received web sw input: up
+2019-03-15 07:34:22,287 MA: motorAction.py writing to websws dbm
+2019-03-15 07:34:22,292 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:35:04,260 MA: motorAction init params: {"bQuit": "False", "door": "down"}
+2019-03-15 07:35:04,261 MA: Received web sw input: down
+2019-03-15 07:35:04,263 MA: motorAction.py writing to websws dbm
+2019-03-15 07:35:04,278 MA: Received: {"door":"down","bQuit":"False"}
+2019-03-15 07:35:07,560 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:35:07,561 MA: Received web sw input: up
+2019-03-15 07:35:07,563 MA: motorAction.py writing to websws dbm
+2019-03-15 07:35:07,574 MA: Received: {"door":"up","bQuit":"False"}
+2019-03-15 07:35:41,605 MA: motorAction init params: {"bQuit": "False", "door": "down"}
+2019-03-15 07:35:41,606 MA: Received web sw input: down
+2019-03-15 07:35:41,608 MA: motorAction.py writing to websws dbm
+2019-03-15 07:35:41,617 MA: Received: {"door":"down","bQuit":"False"}
+2019-03-15 07:35:53,435 MA: motorAction init params: {"bQuit": "False", "door": "up"}
+2019-03-15 07:35:53,436 MA: Received web sw input: up
+2019-03-15 07:35:53,438 MA: motorAction.py writing to websws dbm
+2019-03-15 07:35:53,445 MA: Received: {"door":"up","bQuit":"False"}
