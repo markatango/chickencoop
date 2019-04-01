@@ -1,12 +1,18 @@
 from twilio.rest import Client
-
+import os
 class SendSMS:
 	def __init__(self):
-		self.account_sid = 'ACdad1cb953003df8f6eb528cab1726de3'
-		self.auth_token = 'f9653542e60222d49a43d25919dc1e31'
-		self.client = Client(self.account_sid, self.auth_token)
-		self.fromph = '+14159806275'
-		self.toph = '+16266418432'
+		self.account_sid = os.environ.get('TWILIO_SID')
+		self.auth_token = os.environ.get('TWILIO_TOKEN')
+		self.fromph = os.environ.get('TWILIO_PHONE_FROM')
+		self.toph = os.environ.get('TWILIO_PHONE_TO')
+
+                print(self.auth_token)
+                print(self.account_sid)
+                print(self.fromph)
+                print(self.toph)
+
+                self.client = Client(self.account_sid, self.auth_token)
 
 	def send(self, msg):
 		message = self.client.messages.create(
