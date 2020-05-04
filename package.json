@@ -19,7 +19,7 @@
     "express-session": "^1.7.6",
     "method-override": "^2.3.7",
     "mongoose": "^4.8.4",
-    "morgan": "~1.7.0",
+    "morgan": "~1.10.0",
     "node-cron": "^1.1.3",
     "node-stopwatch": "0.0.1",
     "pug": "^2.0.0-beta6",
