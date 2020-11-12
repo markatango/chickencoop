@@ -6,3 +6,5 @@ close*
 iot/
 log/
 py/*log
+py/*.pyc
+

@@ -9,6 +9,7 @@ import threading
 import logging
 import urllib
 import dbm
+import os
 
 from sendSMS import SendSMS
 
@@ -35,8 +36,10 @@ class coopControl:
     e = ''
     
     initialized = False
-    send = SendSMS()	
-  
+
+    send = SendSMS(os.environ.get('TWILIO_PHONE_TO'))
+    send2 = SendSMS(os.environ.get('TWILIO_PHONE_TO_2'))
+ 
     def __init__(self, event, hold_time = 2.5):
         self.logger = logging.getLogger(__name__)
         coopControl.e = event
@@ -183,7 +186,23 @@ class coopControl:
                     logger.debug("CC: IO Status change, attempting to post...")
                     coopControl.currSwState = sws
                     swsJSON = json.dumps(sws)
-                    coopControl.send.send(swsJSON)
+
+                # Send a text
+		    text = ""
+		    if sws["UPLIM"] == 1 and sws["DNLIM"] == 0 and sws["UPI"] == 0 and sws["DNI"] == 0:
+			text = "Chicken coop door is UP"
+       		    elif sws["UPLIM"] == 0 and sws["DNLIM"] == 1 and sws["DNI"] == 0 and sws["UPI"] == 0:
+                        text = "Chicken coop door is DOWN"
+                    elif sws["UPLIM"] == 1 and sws["DNLIM"] == 1:
+                        text = "Chicken coop door MALFUNCTION!"
+                    else:
+                        text = ""
+
+	            if text:
+                    	coopControl.send.send(text)
+			coopControl.send2.send(text)
+
+                # hit end point to process switch status
                     url = 'http://localhost:3000/coopevents'
                     if not e.is_set():
                         try:
@@ -193,6 +212,8 @@ class coopControl:
                             thePoster = poster.Poster(url, swsJSON)
                             thePoster.postStatus()
                             logger.debug("CC: IO Status change, post succeeded, setting event")
+
+                 # notify server to update webpages 
                             coopControl.e.set()
                         except IOError:
                             logger.debug("CC: IO Status change, post failed")
