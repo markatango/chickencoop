@@ -171,8 +171,9 @@ module.exports = function(io) {
       },
 
 	updateio : function(req, res){
+           console.log("entering updateio");
 	   var spawn = require('child_process').spawn;
-	   
+	   console.log("spawning read door_op");
 	   var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.READ.door_op)]);
 	   process.stdout.on('data', function(data){
 	        var msg = `${data}`;
