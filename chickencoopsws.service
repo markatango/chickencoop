@@ -1,0 +1,14 @@
+[Service]
+WorkingDirectory=/home/pi/nodes/chickencoop
+ExecStart=/usr/bin/node app.js &
+Restart=always
+RestartSec=8
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=chickencoop
+User=pi
+Group=pi
+Environment=NODE_ENV=development
+
+[Install]
+WantedBy=multi-user.target
