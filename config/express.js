@@ -31,8 +31,9 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 	console.log("Log directory: " + logDirectory);
 	
-	var accessLogStream = rfs('access.log', {
+	var accessLogStream = rfs.createStream('access.log', {
 	interval: '1d',
+        size: "10M",
 	path: logDirectory
 	});
 	

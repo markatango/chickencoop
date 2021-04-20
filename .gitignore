@@ -8,4 +8,5 @@ log/
 py/*log
 py/*.pyc
 *.service
+*.pyc
 
