@@ -7,4 +7,5 @@ iot/
 log/
 py/*log
 py/*.pyc
+*.service
 
