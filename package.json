@@ -19,7 +19,7 @@
     "node-stopwatch": "0.0.1",
     "rotating-file-stream": "^1.4.0",
     "serve-favicon": "^2.5.0",
-    "socket.io": "^1.7.4"
+    "socket.io": "^2.4.0"
   },
   "compatibility": [
     "body-parser",
