@@ -40,7 +40,11 @@ module.exports = function(io) {
       		  res.sendFile(filename, function(err){
                       if(err){
                          console.log("home error: " + err);
-                         res.status(err.status).end();
+                         console.log("home error.status: " + err.status);
+                         console.log("home error.statusCode: " + err.statusCode);
+			 console.error("home error.stack: " + err.stack)
+			 res.status(500).end()
+                        // res.status(err.status).end();
                       } else {
                          console.log('Sent: ' + filename);
 			res.end();
