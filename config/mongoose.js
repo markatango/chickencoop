@@ -6,6 +6,7 @@ module.exports = function(){
     mongoose.set('useFindAndModify', false);
     mongoose.set('useCreateIndex', true);
     mongoose.set('useUnifiedTopology', true);
+    console.log("Attempting to connect to mongo database");
  
     mongoose.connect(config.db);
     var db = mongoose.connection;

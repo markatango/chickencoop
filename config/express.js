@@ -10,18 +10,18 @@ var config = require('./config'),
     clockEvent = require('../app/js/clockEvent');
 
 module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file
-    var app = express();
-    var server = http.createServer(app);
-    var io = require('socket.io')(server);
+  var app = express();
+  var server = http.createServer(app);
+  var io = require('socket.io')(server);
 
-    //require('../app/js/initialize_buttons')(io);
+  //require('../app/js/initialize_buttons')(io);
 
-    io.on('connection', function(socket){
-	  console.log('a user connected');
-          clockEvent.immediate(io);
-    });
+  io.on('connection', function(socket){
+  console.log('a user connected');
+        clockEvent.immediate(io);
+  });
 
-    require('../app/js/startClocker').start(io);
+  require('../app/js/startClocker').start(io);
 
 	// set up log to file
 	var rfs = require('rotating-file-stream');
@@ -31,7 +31,7 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 	console.log("Log directory: " + logDirectory);
 	
-	var accessLogStream = rfs.createStream('access.log', {
+	var accessLogStream = rfs('access.log', {
 	interval: '1d',
         size: "10M",
 	path: logDirectory
@@ -47,25 +47,25 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
 	app.use(bodyLogger);
     }*/
 
-    var cors = require('../app/custom_middleware/cors');
-    app.use(cors);
+  var cors = require('../app/custom_middleware/cors');
+  app.use(cors);
 
 
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
-    app.use(methodOverride());
-   
-    require('../app/routes/button.server.routes.js')(app, io);
-    require('../app/routes/time.server.routes.js')(app, io, cron);
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(methodOverride());
+ 
+  require('../app/routes/button.server.routes.js')(app, io);
+  require('../app/routes/time.server.routes.js')(app, io, cron);
 
-    app.use(express.static(path.join( __dirname, '../public/assets')));
-    app.use(express.static(path.join( __dirname, '../public/views')));
-    app.use(express.static(path.join( __dirname, '../bower_components/bootstrap')));
-    app.use(express.static(path.join( __dirname, '../bower_components/jquery')));
-    app.use(express.static(path.join( __dirname, '../bower_components')));
-    app.use(express.static(path.join( __dirname, '../bower_components/bootstrap-material-datetimepicker')));
-    
-    return server;
+  app.use(express.static(path.join( __dirname, '../public/assets')));
+  app.use(express.static(path.join( __dirname, '../public/views')));
+  app.use(express.static(path.join( __dirname, '../bower_components/bootstrap')));
+  app.use(express.static(path.join( __dirname, '../bower_components/jquery')));
+  app.use(express.static(path.join( __dirname, '../bower_components')));
+  app.use(express.static(path.join( __dirname, '../bower_components/bootstrap-material-datetimepicker')));
+  
+  return server;
 }
 
     

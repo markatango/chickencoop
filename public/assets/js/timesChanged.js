@@ -24,7 +24,7 @@ $('#doorclosetime').on('change', function(){
 $('#timesform').on('submit', function(e){
 var data = $(this);
  	e.preventDefault();
-        $.post('/times',data.serialize(), function(res){
+       $.post('/times',data.serialize(), function(res){
        console.log("Posted time data from submit button: " + JSON.stringify(res));
 });
 });

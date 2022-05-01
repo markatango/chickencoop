@@ -7,6 +7,7 @@ iot/
 log/
 py/*log
 py/*.pyc
+py/websws.db
 *.service
 *.pyc
 

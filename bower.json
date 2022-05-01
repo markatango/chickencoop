@@ -1,20 +1,12 @@
 {
   "name": "chickencoop",
-  "homepage": "https://github.com/markatango/chickencoop",
+  "description": "Chicken coop controller",
+  "main": "app.js",
   "authors": [
-    "Mark Rodighiero <markatango@gmail.com>"
+    "Mark Rodighiero"
   ],
-  "description": "Controller software for camera, lights and environmental monitoring",
-  "main": "index.html",
-  "keywords": [
-    "Chicken",
-    "coop",
-    "Raspberry",
-    "pi",
-    "node"
-  ],
-  "license": "GPL-3.0",
-  "private": true,
+  "license": "ISC",
+  "homepage": "https://github.com/markatango/chickencoop",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -23,8 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "^2.4.0",
-    "moment": "^2.17.1",
-    "bootstrap-material-datetimepicker": "^2.7.1"
+    "angular-bootstrap": "^2.5.0",
+    "moment": "^2.29.1",
+    "bootstrap": "^4.6.0"
   }
 }
