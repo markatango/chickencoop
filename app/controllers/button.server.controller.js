@@ -6,7 +6,7 @@ const Stopwatch = require('node-stopwatch').Stopwatch;
 var IOStatusEmitter = require("../js/IOStatusEmitter");
 
 const getErrorMessage = function(err){
-    var message = '';
+    let message = '';
     if (err.code) {
         switch(err.code) {
             case 11000:
@@ -36,39 +36,40 @@ module.exports = function(io) {
     return {
 
 	home : function(req, res){
-	          var filename = path.join(__dirname, '../..', 'public/views/index.html'); 
-      		  res.sendFile(filename, function(err){
-                      if(err){
-                         console.log("home error: " + err);
-                         console.log("home error.status: " + err.status);
-                         console.log("home error.statusCode: " + err.statusCode);
-			 console.error("home error.stack: " + err.stack)
-			 res.status(500).end()
-                        // res.status(err.status).end();
-                      } else {
-                         console.log('Sent: ' + filename);
-			res.end();
-		      }
-                  });
+	        var filename = path.join(__dirname, '../..', 'public/views/index.html'); 
+      		res.sendFile(filename, function(err){
+				if(err){
+					console.log("home error: " + err);
+					console.log("home error.status: " + err.status);
+					console.log("home error.statusCode: " + err.statusCode);
+					console.error("home error.stack: " + err.stack)
+					res.status(500).end()
+						// res.status(err.status).end();
+				} else {
+					console.log('Sent: ' + filename);
+					res.end();
+				}
+			});
     	},
 	
 	open : function(req, res){
 	//spawns a python script with __name__ == '__main__'
+	// Updates the web switch db with most recent web open / close button pushes.
+	// Returns a status to the http GET that got us here.
 	    
-	    var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.UP.door_op)]);
-	    var resp = ''
-            process.stdout.on('data', function(data){
-                var msg = "Door open command: " + `${data}`;
-		console.log(msg);
-	        resp += data
-            });
-            process.stderr.on('data', function(data){
-		console.log("open error: " + `${data}`);
-	        resp += data
-	    });
-            res.end(resp)
-
-
+	    const process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.UP.door_op)]);
+	    var resp = "open message: "
+		process.stdout.on('data', function(data){
+			const msg = `Door open command: ${data.toString()}`;
+			console.log(msg);
+			resp += msg
+		});
+		process.stderr.on('data', function(data){
+			const msg = `Door open command error: ${data.toString()}`;
+			console.log(msg);
+			resp += msg
+		});
+        res.send({"resp":resp})
 
 //	    var timer = spawn('python', [timerAScriptPath]);
 //	    
@@ -91,18 +92,19 @@ module.exports = function(io) {
 
 	close : function(req, res){
   
-	    var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.DOWN.door_op)]);
-	    var resp = ''
-            process.stdout.on('data', function(data){
-                var msg = "Door close command: " + `${data}`;
-		console.log(msg);
-	        resp += data
-            });
+	    const process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.DOWN.door_op)]);
+	    var resp = "close message: "
+		process.stdout.on('data', function(data){
+			const msg = `Door close command: ${data}`;
+			console.log(msg);
+			resp += msg
+		});
 	    process.stderr.on('data', function(data){
-		console.log("close error: " + `${data}`);
- 	        resp += data
+			const msg = `Door close command: ${data}`;
+			console.log(`close error: ${msg}`);
+ 	        resp += msg
 	    });
-            res.end(resp)
+        res.send(JSON.stringify(resp));
 
 //	    var timer = spawn('python', [timerAScriptPath])
 	    
@@ -123,19 +125,34 @@ module.exports = function(io) {
 //	    });
         },
 
+	// report : function(req, res){
+	// 	const process = spawn('python', [helloScriptPath]);
+	// 	process.stdout.on('data', function(data){
+	// 		console.log(`report: ${data}`);
+	// 		res.send(`report: ${data}`);
+	// 	});
+	//     process.stderr.on('data', function(data){
+	// 		console.log(`report error: ${data.toString()}`);
+    //         res.send(`report: ${data}`);
+	//     });
+
+	// },
+
 	report : function(req, res){
-            var process = spawn('python', [helloScriptPath]);
-	    
-            process.stdout.on('data', function(data){
-                console.log(`${data}`);
-                res.end(data);
-                });
+		var response = ''
+		const process = spawn('python', [helloScriptPath]);
+		process.stdout.on('data', function(data){
+			response += data;
+			console.log(`report: ${response}`);
+			res.send(`report: ${response}`);
+		});
 	    process.stderr.on('data', function(data){
-		console.log("report error: " + `${data}`);
-                res.end(data);
+			response += data;
+			console.log(`report error: ${response}`);
+            res.send(`report: ${response}`);
 	    });
 
-        },
+	},
 
 	upperlim : function(req, res){
 		console.log("Upper limit reached");
@@ -174,9 +191,8 @@ module.exports = function(io) {
 	    res.end("coopevents.res: " + msg);
       },
 
-	updateio : function(req, res){
+      updateio : function(req, res){
            console.log("entering updateio");
-	   var spawn = require('child_process').spawn;
 	   console.log("spawning read door_op");
 	   var process = spawn('python', [motorActionScriptPath, JSON.stringify(doStrings.doorOps.READ.door_op)]);
 	   process.stdout.on('data', function(data){

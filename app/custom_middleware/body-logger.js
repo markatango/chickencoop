@@ -1,4 +1,9 @@
 module.exports = function(req, res, next){
-	console.log('req.body: ' + JSON.stringify(req.body));
+	if (req) {
+		console.log('req.body found: ' + JSON.stringify(req.body));
+	} else {
+		console.log('req body: body not found.')
+	}
+	
 	next();
 }

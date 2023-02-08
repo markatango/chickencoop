@@ -10,7 +10,7 @@ var colorDot = function(on_bool, b_id) {
     };
 };
 
-$('document').ready(function(){
+var updateDisplay = function(){
 	socket.on('doorstatemsg', function(msg){
 		$('#doorStateMsg').text(msg);
 	});
@@ -70,5 +70,8 @@ $('document').ready(function(){
 	socket.on('checkLocalInDn', function(b){
 		colorDot(b, '#DNI');
 	});
-});
+}
 
+$('document').ready(updateDisplay);
+
+updateDisplay()

@@ -5,7 +5,6 @@ module.exports = function(io){
    console.log("initializing buttons");
    var process = spawn('python', ['./py/coopSwitchesWithEvents.py']);
 
-   
    process.stdout.on('data', function(data){
         var msg = `${data}`;
 	console.log("Switch status: " + `${data}`);
@@ -40,7 +39,6 @@ module.exports = function(io){
 	} else {
 		io.emit('checkLocalDn', false);
 	}
-
 
    }); //process.stdout.on	
    process.stderr.on('data', function(data){

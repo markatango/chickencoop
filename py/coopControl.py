@@ -10,7 +10,6 @@ import logging
 import urllib
 import dbm
 import os
-
 from sendSMS import SendSMS
 
 logging.basicConfig(level=logging.DEBUG, filename="coop.log", format='%(asctime)-15s %(message)s')
@@ -98,7 +97,17 @@ class coopControl:
         if(op == 'up'): coopControl.motorAction(coopControl.Uout)
         if(op == 'down'): coopControl.motorAction(coopControl.Dout)
         if(op == 'stop'): coopControl.motorAction(coopControl.Sout)
-        
+ 
+    @classmethod
+    def readInputs(obj):
+        labels = ["Uin", "Sin", "Din", "u_lim", "d_lim"]
+
+        res = []
+        for i,v in enumerate(coopControl.inputs):
+            res += [gp.input(v)]
+        out = zip(labels, res)
+        return list(out)
+           
     @classmethod
     def readIOs(obj):
         '''
@@ -137,9 +146,16 @@ class coopControl:
         obj.logger = logging.getLogger(__name__)
         dbpath = "/home/pi/nodes/chickencoop/py/websws"
         ws = dbm.open(dbpath, "r")
-        res = {"dopen": eval(ws["open"]),
-                "dclose": eval(ws["close"])
-                }
+        try:
+           res = {"dopen": eval(ws["open"]),
+                  "dclose": eval(ws["close"])
+                 }
+        except Exception as e:
+           logger.info("ws database keys: {}".format(ws.keys()))
+           logger.info("Setting dopen and dclose to False")
+           res = {"dopen": False,
+                  "dclose": False
+                 }
         ws.close()
         return res
  
@@ -150,6 +166,8 @@ class coopControl:
         while True:
             with lock:
                 ws = coopControl.readWebsws()
+                # logger.info("CC: scanning web switches: last web switch status   : {}".format(ws))
+                # logger.info("CC: scanning web switches: current web switch status: {}".format(coopControl.currWebSws))
                 if not (coopControl.currWebSws == ws):
                     logger.info("CC: web button data change detected")
                     coopControl.currWebSws = ws
@@ -170,6 +188,7 @@ class coopControl:
                             thePoster.postStatus()
                         except IOError:
                             logger.info("CC: Server not up yet on page IO initialization")
+            sleep(0.1) # prevent buzzing
             pass ## terminate lock just in case the while loop doesn't do that
 
 
@@ -187,22 +206,22 @@ class coopControl:
                     coopControl.currSwState = sws
                     swsJSON = json.dumps(sws)
 
-                # Send a text
-		    text = ""
-		    if sws["UPLIM"] == 1 and sws["DNLIM"] == 0 and sws["UPI"] == 0 and sws["DNI"] == 0:
-			text = "Chicken coop door is UP"
-       		    elif sws["UPLIM"] == 0 and sws["DNLIM"] == 1 and sws["DNI"] == 0 and sws["UPI"] == 0:
+                    # Send a text
+                    text = ""
+                    if sws["UPLIM"] == 1 and sws["DNLIM"] == 0 and sws["UPI"] == 0 and sws["DNI"] == 0:
+                        text = "Chicken coop door is UP"
+                    elif sws["UPLIM"] == 0 and sws["DNLIM"] == 1 and sws["DNI"] == 0 and sws["UPI"] == 0:
                         text = "Chicken coop door is DOWN"
                     elif sws["UPLIM"] == 1 and sws["DNLIM"] == 1:
                         text = "Chicken coop door MALFUNCTION!"
                     else:
                         text = ""
 
-	            if text:
-                    	coopControl.send.send(text)
-			coopControl.send2.send(text)
+                    if text:
+                        coopControl.send.send(text)
+                        coopControl.send2.send(text)
 
-                # hit end point to process switch status
+                    # hit end point to process switch status
                     url = 'http://localhost:3000/coopevents'
                     if not e.is_set():
                         try:
@@ -213,7 +232,7 @@ class coopControl:
                             thePoster.postStatus()
                             logger.debug("CC: IO Status change, post succeeded, setting event")
 
-                 # notify server to update webpages 
+                    # notify server to update webpages 
                             coopControl.e.set()
                         except IOError:
                             logger.debug("CC: IO Status change, post failed")
@@ -231,13 +250,8 @@ class coopControl:
             gp.cleanup()
             logger.debug("CC: door control closed.")
             logger.debug("print CC: Cleaned up GPIO")
-                                                            
-if __name__ == '__main__':
 
-
-    logger = logging.getLogger(__name__)
-    logger.debug("CC: instantiating coopControl")
-    e = multiprocessing.Event()
+def main(e):
     obj = coopControl(e)
     
     if not coopControl.initialized:
@@ -291,6 +305,50 @@ if __name__ == '__main__':
 ##
 ##                             
 ##                                  
+
+
+def test(e):
+    cc = coopControl(e)
+    try:
+        while True:
+            if gp.input(coopControl.Uout):
+                gp.output(coopControl.Uout, gp.LOW)
+            else:
+                gp.output(coopControl.Uout, gp.HIGH)
+            if gp.input(coopControl.Uout):
+                gp.output(coopControl.Dout, gp.LOW)
+            else:
+                gp.output(coopControl.Dout, gp.HIGH)
+            print( cc.readInputs() )
+            sleep(0.5)
+    except KeyboardInterrupt:
+        cc.close()
+        print("Exiting test....")
+        exit(0)
+
+
+def testInputs(e):
+    cc = coopControl(e)
+    try:
+        while True:
+            print( cc.readInputs() )
+            sleep(0.5)
+    except KeyboardInterrupt:
+        cc.close()
+        print("Exiting test....")
+        exit(0)
+
+
+            
+if __name__ == '__main__':
+    logger = logging.getLogger(__name__)
+    logger.debug("CC: instantiating coopControl")
+    e = multiprocessing.Event()
+
+#    test(e)
+#    testInputs(e)
+    main(e)
+
         
 
     

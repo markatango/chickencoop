@@ -7,54 +7,57 @@ var config = require('./config'),
     methodOverride = require('method-override'),
     flash = require('connect-flash'),
     path = require('path'),
-    clockEvent = require('../app/js/clockEvent');
+    clockEvent = require('../app/js/clockEvent'),
+    initializeButtons = require('../app/js/initialize_buttons'),
+    clockStarter = require('../app/js/startClocker'),
+    rfs = require('rotating-file-stream'),
+    fs = require('fs'),
+    cors = require('../app/custom_middleware/cors');
+
 
 module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file
   var app = express();
   var server = http.createServer(app);
   var io = require('socket.io')(server);
 
-  //require('../app/js/initialize_buttons')(io);
 
   io.on('connection', function(socket){
   console.log('a user connected');
         clockEvent.immediate(io);
+//        initializeButtons(io);
   });
 
-  require('../app/js/startClocker').start(io);
+  clockStarter.start(io);
+// set up access log to file
+  var logDirectory = path.join(__dirname, '..', 'log');
+  fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+  console.log("Log directory: " + logDirectory);
+  var accessLogStream = rfs('access.log', {
+     interval: '1d',
+     size: "10M",
+     path: logDirectory
+  });
 
-	// set up log to file
-	var rfs = require('rotating-file-stream');
-	var fs = require('fs');
-	var logDirectory = path.join(__dirname, '..', 'log');
-	
-	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
-	console.log("Log directory: " + logDirectory);
-	
-	var accessLogStream = rfs('access.log', {
-	interval: '1d',
-        size: "10M",
-	path: logDirectory
-	});
-	
-	app.use(morgan(':date[iso], :method, :status, :res[content-length]', 
+  app.use(morgan(':date[iso], :remote-addr, :method, :status, :res[content-length]', 
 			{stream : accessLogStream}));
-	// app.use(morgan('dev'));
 
-   
-    
-    /*if(process.env.NODE_ENV == 'development'){
-	app.use(bodyLogger);
-    }*/
-
-  var cors = require('../app/custom_middleware/cors');
   app.use(cors);
-
-
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(methodOverride());
- 
+/*  if(process.env.NODE_ENV == 'development'){
+    app.use(bodyLogger);
+  }
+*/
+/*  app.use((req, res) => {
+    console.log("req.body: ");
+    console.log(req.body); // this is what you want           
+    res.on("finish", () => {
+      console.log("res:" );
+      console.log(res);
+    });
+  });
+ */
   require('../app/routes/button.server.routes.js')(app, io);
   require('../app/routes/time.server.routes.js')(app, io, cron);
 

@@ -54,7 +54,15 @@ const makeCronString = function (date){
 };
 
 const dateStringTotime = function(dateString){
-	var dt = new Date(dateString);
+	var dt = null;
+	try {
+		dt = new Date(dateString);
+	} catch {
+		console.log(`Invalid date captured from webpage: ${dateString}`)
+		dt = new Date('1970-01-01T06:00:00Z')
+		console.log(`Setting date to ${dt.toString()} `)
+	}
+	
 	return _getHours(dt) + ":" + _getMinutes(dt);
 };
 
