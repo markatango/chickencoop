@@ -217,9 +217,9 @@ class coopControl:
                     else:
                         text = ""
 
-                    if text:
-                        coopControl.send.send(text)
-                        coopControl.send2.send(text)
+                    # if text:
+                    #     coopControl.send.send(text)
+                    #     coopControl.send2.send(text)
 
                     # hit end point to process switch status
                     url = 'http://localhost:3000/coopevents'
