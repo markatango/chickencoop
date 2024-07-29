@@ -90,7 +90,7 @@ class coopControl:
             gp.output(mbit, gp.LOW)
             sleep(coopControl.hold_time)
             gp.output(mbit, gp.HIGH)
-            print "Door control bit: " + str(mbit)
+            print ("Door control bit: " + str(mbit))
 
     @classmethod
     def motorOp(obj, op):
