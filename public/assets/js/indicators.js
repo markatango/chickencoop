@@ -18,6 +18,10 @@ var updateDisplay = function(){
 	socket.on('doorprogmsg', function(msg){
 		$('#doorProgress').text(msg);
 	});
+
+	socket.on('logmessage', function(msg){
+		$('#logMessage').text(msg);
+	});
 	
 	socket.on('dooroptime', function(msg){
 		$('#doorOpTime').text(msg);

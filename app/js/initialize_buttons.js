@@ -11,6 +11,7 @@ module.exports = function(io){
    process.stdout.on('data', function(data){
         var msg = `${data}`;
 	console.log("Initialize_buttons switch status: " + `${data}`);
+   io.emit('logmessage', "Initialize_buttons switch status: " + `${data}`)
 
 	io.emit('doorprogmsg', "");
 	IOStatusEmitter(io, msg);
