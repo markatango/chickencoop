@@ -21,8 +21,9 @@ var updateDisplay = function(){
 
 	socket.on('logmessage', function(msg){
 		let msgn = msg + "\n";
-		let existing = $('#logmessage').val() || ""
-		$('#logmessage').val(existing + msgn);
+		// let existing = $('#logmessage').val() || ""
+		// $('#logmessage').val(existing + msgn);
+		$('#logmessage').val(msgn);
 	});
 	
 	socket.on('dooroptime', function(msg){

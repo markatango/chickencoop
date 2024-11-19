@@ -26,7 +26,7 @@ module.exports = function(io, msgj){
 	if(msgj["UPLIM"] == 1) {
 		let msg = "Upper limit reached: " + msgj["UPLIM"]
 		console.log(msg);
-		io.emit('logmessage', msg)
+		// io.emit('logmessage', msg)
 		io.emit('doorstatemsg', doStrings.doorOps.UPLIM.doorStateMsg);
 		io.emit('checkUPlim', true);
 		io.emit('checkDNlim', false);

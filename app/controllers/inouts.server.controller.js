@@ -74,9 +74,10 @@ module.exports = function(io) {
 
           	inout.save(function(err){
 	        	if(err){
+					console.log(getErrorMessage(err);
 	    		    return next(err);
 	        	} else {
-	       	     res.json(inout);
+	       	        res.json(inout);
 	        	}
 	    	});//save
 
@@ -88,12 +89,17 @@ module.exports = function(io) {
 
 
 	getlastio : function(req, res, next){
-	    InOut.find().sort({created : -1}).limit(1).exec(function(err,inout){
-		    //var msgj = JSON.parse(inout);
-		    console.log("stringified: " + JSON.stringify(inout));
-		    IOStatusEmitter(io, inout);
-			logEmitter(io, JSON.stringify(inout))
-		    res.send(inout);
+	    InOut.find().sort({created : -1}).limit(1).exec(function(err, inout){
+			if (err){
+				console.log(getErrorMessage(err));
+				return next(err);
+			} else {
+				//var msgj = JSON.parse(inout);
+				console.log("stringified: " + JSON.stringify(inout));
+				IOStatusEmitter(io, inout);
+				logEmitter(io, JSON.stringify(inout));
+				res.send(inout);
+			}
 	    });
 	},//getio
 	

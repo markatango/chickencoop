@@ -20,14 +20,14 @@ module.exports = function(io, msg){
 		}
 	});//save
 	countDocs()
-	LogMessage.find({},{created:1, _id:0}).sort({created:-1}).limit(1).exec(function(err,cdate){
+	LogMessage.find({},{message:1, _id:0}).sort({created:-1}).limit(50).exec(function(err, messages){
 		if(err){
-			let errmsg = "Log message.find() failed to return value. Check database."
+			let errmsg = "LogMessage.find() failed to return a value. Check database."
  			console.log(errmsg)
 			io.emit('logmessage', errmsg + "\n");
 		} else {
-			io.emit('logmessage', "last log message saved at: " + cdate)
-			io.emit('logmessage', msg)
+			io.emit('logmessage', JSON.stringify(messages))
+			// io.emit('logmessage', msg)
 		}
 	})
 }
