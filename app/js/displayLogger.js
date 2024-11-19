@@ -18,11 +18,18 @@ module.exports = function(io, msg){
 		} else {
 		console.log("Res: saved log message", lm.message); 
 		}
-		});//save
+	});//save
 	countDocs()
-	let res = LogMessage.find({},{created:1, _id:0}).sort({created:-1}).limit(1)
-	io.emit('logmessage', msg)
-	io.emit('logmessage', "last log message: " + res[0])
+	LogMessage.find({},{created:1, _id:0}).sort({created:-1}).limit(1).exec(function(err,cdate){
+		if(err){
+			let errmsg = "Log message.find() failed to return value. Check database."
+ 			console.log(errmsg)
+			io.emit('logmessage', errmsg + "\n");
+		} else {
+			io.emit('logmessage', "last log message saved at: " + cdate)
+			io.emit('logmessage', msg)
+		}
+	})
 }
 
 	
