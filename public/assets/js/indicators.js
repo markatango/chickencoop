@@ -20,7 +20,9 @@ var updateDisplay = function(){
 	});
 
 	socket.on('logmessage', function(msg){
-		$('#logmessage').val(msg);
+		let msgn = msg + "\n";
+		let existing = $('#logmessage').val() || ""
+		$('#logmessage').val(existing + msgn);
 	});
 	
 	socket.on('dooroptime', function(msg){

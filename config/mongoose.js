@@ -29,5 +29,6 @@ module.exports = function(){
     require('../app/models/time.server.model');
     require('../app/models/inout.server.model');
     require('../app/models/webcontrol.server.model');
+    require('../app/models/log.server.model');
     return db;
 };

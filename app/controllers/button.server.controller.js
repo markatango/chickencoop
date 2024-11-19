@@ -4,6 +4,7 @@ const path = require('path');
 const doStrings = require('../js/doorOpStrings');
 const Stopwatch = require('node-stopwatch').Stopwatch;
 var IOStatusEmitter = require("../js/IOStatusEmitter");
+var logEmitter = require("../js/displayLogger");
 
 const getErrorMessage = function(err){
     let message = '';
@@ -188,6 +189,7 @@ module.exports = function(io) {
 	    var msgj = JSON.parse(msg);
 	    // console.log("stringified: " + JSON.stringify(msgj));
 	    IOStatusEmitter(io, msgj);
+		logEmitter(io, JSON.stringify(msgj));
 	    res.end("coopevents.res: " + msg);
       },
 

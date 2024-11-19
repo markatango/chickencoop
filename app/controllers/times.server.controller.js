@@ -85,15 +85,15 @@ module.exports = function(io, cron) {
         var time = new Time();
 	    	time.startTime = starttime;
 	    	time.endTime = endtime;
-            	time.save(function(err){
-	        	if(err){
-              console.log("Error saving time", time.startTime, time.endTime);
-	    		    return next(err);
-	        	} else {
-              console.log("Res: saved time", time.startTime, time.endTime); 
-	       	     res.json(time);
-	        	}
-	    	});//save
+			time.save(function(err){
+			if(err){
+			console.log("Error saving time", time.startTime, time.endTime);
+				return next(err);
+			} else {
+			console.log("Res: saved time", time.startTime, time.endTime); 
+				res.json(time);
+			}
+		});//save
 	    } else {
         console.log("times.server.controller create: times in body are invalid");
       }

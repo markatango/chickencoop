@@ -1,6 +1,7 @@
 const InOut = require('mongoose').model('InOut');
 var exec = require('child_process').exec; 
 var IOStatusEmitter = require("../js/IOStatusEmitter");
+var logEmitter = require("../js/displayLogger");
 
 
 const getErrorMessage = function(err){
@@ -91,6 +92,7 @@ module.exports = function(io) {
 		    //var msgj = JSON.parse(inout);
 		    console.log("stringified: " + JSON.stringify(inout));
 		    IOStatusEmitter(io, inout);
+			logEmitter(io, JSON.stringify(inout))
 		    res.send(inout);
 	    });
 	},//getio
