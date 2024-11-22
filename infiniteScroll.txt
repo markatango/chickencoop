@@ -1,0 +1,113 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Scroll Textarea</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 300px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="documentArea" readonly></textarea>
+    <script>
+        let offset = 0; // For tracking the number of documents fetched
+        const limit = 50; // Number of documents to fetch at a time
+        const documentArea = document.getElementById('documentArea');
+
+        // Function to fetch documents from the server
+        async function fetchDocuments() {
+            const response = await fetch(`/api/documents?offset=${offset}&limit=${limit}`);
+            const documents = await response.json();
+            return documents;
+        }
+
+        // Function to load documents and append to textarea
+        async function loadDocuments() {
+            const documents = await fetchDocuments();
+            if (documents.length > 0) {
+                documents.forEach(doc => {
+                    documentArea.value += doc.content + '\n'; // Assuming each doc has a content field
+                });
+                offset += documents.length; // Update offset for next fetch
+            }
+        }
+
+        // Event listener for scrolling
+        documentArea.addEventListener('scroll', () => {
+            if (documentArea.scrollTop + documentArea.clientHeight >= documentArea.scrollHeight) {
+                loadDocuments(); // Load more documents when at the bottom
+            }
+        });
+
+        // Initial load
+        loadDocuments();
+    </script>
+</body>
+</html>
+```
+
+### Server-Side Code (Node.js with Express)
+
+You will need an Express server with a route that handles fetching documents from MongoDB. Below is an example setup.
+
+```javascript
+const express = require('express');
+const mongoose = require('mongoose');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// MongoDB connection setup
+mongoose.connect('mongodb://localhost:27017/your-database', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+// Define a Document Schema
+const documentSchema = new mongoose.Schema({
+    content: String,
+});
+
+// Create a Model
+const Document = mongoose.model('Document', documentSchema);
+
+// API route to fetch documents
+app.get('/api/documents', async (req, res) => {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 50;
+
+    try {
+        const documents = await Document.find().skip(offset).limit(limit);
+        res.json(documents);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+```
+
+### Explanation
+
+1. **Client-Side**:
+   - A `<textarea>` is used to display the documents.
+   - The `fetchDocuments` function makes a GET request to the server, fetching documents based on the current offset.
+   - The `loadDocuments` function updates the textarea with fetched documents and updates the offset for subsequent requests.
+   - An event listener on the textarea listens for scroll events and triggers loading more documents when the user scrolls to the bottom.
+
+2. **Server-Side**:
+   - An Express server is set up.
+   - The MongoDB connection is established, and a simple schema is defined for documents.
+   - The `/api/documents` route retrieves documents using the `skip` and `limit` functions for pagination.
+
+Make sure to adjust the MongoDB connection string and schema to fit your actual database structure and contents.

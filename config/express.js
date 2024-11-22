@@ -62,6 +62,7 @@ module.exports = function(db, cron){ // db is only needed if we activate MongoSt
  */
   require('../app/routes/button.server.routes.js')(app, io);
   require('../app/routes/time.server.routes.js')(app, io, cron);
+  require('../app/routes/infiniteLog.server.routes.js')(app);
 
   app.use(express.static(path.join( __dirname, '../public/assets')));
   app.use(express.static(path.join( __dirname, '../public/views')));
