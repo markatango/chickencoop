@@ -74,7 +74,7 @@ module.exports = function(io) {
 
           	inout.save(function(err){
 	        	if(err){
-					console.log(getErrorMessage(err);
+					console.log(getErrorMessage(err));
 	    		    return next(err);
 	        	} else {
 	       	        res.json(inout);
@@ -84,9 +84,7 @@ module.exports = function(io) {
 	    } else {
 		console.log("inouts.server.controller create: inouts in body are invalid");
             }
-	   
     	},// create
-
 
 	getlastio : function(req, res, next){
 	    InOut.find().sort({created : -1}).limit(1).exec(function(err, inout){

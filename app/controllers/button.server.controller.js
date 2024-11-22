@@ -156,7 +156,9 @@ module.exports = function(io) {
 	},
 
 	upperlim : function(req, res){
-		console.log("Upper limit reached");
+		let msg = "Upper limit reached"
+		console.log(msg);
+		logEmitter(io, msg);
 		res.end('upperlim');
 
 //		var timer = spawn('python', [timerBScriptPath])
@@ -200,6 +202,7 @@ module.exports = function(io) {
 	   process.stdout.on('data', function(data){
 	        var msg = `${data}`;
 		console.log("updateio: argument: " + msg);
+		logEmitter(io, "updateio: argument: " + msg);
 		res.end("updateio argument: " + msg);		
 	   }); //process.stdout.on
 	

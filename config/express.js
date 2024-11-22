@@ -1,4 +1,4 @@
-// var config = require('./config'),
+// var config = require('./config');
 var http = require('http'),
     express = require('express'),
     morgan = require('morgan'),
@@ -13,6 +13,8 @@ var http = require('http'),
     rfs = require('rotating-file-stream'),
     fs = require('fs'),
     cors = require('../app/custom_middleware/cors');
+
+var LogMessage = require("mongoose").model('LogMessage');
 
 
 module.exports = function(db, cron){ // db is only needed if we activate MongoStore in this file

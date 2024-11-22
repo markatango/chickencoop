@@ -1,6 +1,7 @@
 const Time = require('mongoose').model('Time');
 const doStrings = require('../js/doorOpStrings');
 var exec = require('child_process').exec; 
+var logEmitter = require("../js/displayLogger");
 
 const getErrorMessage = function(err){
     var message = '';
@@ -91,6 +92,7 @@ module.exports = function(io, cron) {
 				return next(err);
 			} else {
 			console.log("Res: saved time", time.startTime, time.endTime); 
+			logEmitter(io, "Saved time: " + `${time.startTime} +  ${time.endTime}`)
 				res.json(time);
 			}
 		});//save
@@ -110,6 +112,7 @@ module.exports = function(io, cron) {
 			console.log('open cronString: ' + cronString);
 			cronJobOpen = cron.schedule(cronString, function(){
 				console.log("scheduled open");
+				
 				var child = exec('/usr/bin/wget http://localhost:3000/open', function(err, stdout, stderr){
           if(err !== null){
               console.log("error: " + err);
