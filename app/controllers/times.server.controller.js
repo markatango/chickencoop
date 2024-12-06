@@ -92,7 +92,7 @@ module.exports = function(io, cron) {
 				return next(err);
 			} else {
 			console.log("Res: saved time", time.startTime, time.endTime); 
-			logEmitter(io, "Saved time: " + `${time.startTime} +  ${time.endTime}`)
+			logEmitter(io, "Saved time: open:" + `${time.startTime} + ", close: " +  ${time.endTime}`)
 				res.json(time);
 			}
 		});//save

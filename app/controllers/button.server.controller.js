@@ -98,11 +98,13 @@ module.exports = function(io) {
 		process.stdout.on('data', function(data){
 			const msg = `Door close command: ${data}`;
 			console.log(msg);
+			logEmitter(io, msg);
 			resp += msg
 		});
 	    process.stderr.on('data', function(data){
 			const msg = `Door close command: ${data}`;
 			console.log(`close error: ${msg}`);
+			logEmitter(io, msg);
  	        resp += msg
 	    });
         res.send(JSON.stringify(resp));
@@ -191,7 +193,7 @@ module.exports = function(io) {
 	    var msgj = JSON.parse(msg);
 	    // console.log("stringified: " + JSON.stringify(msgj));
 	    IOStatusEmitter(io, msgj);
-		logEmitter(io, JSON.stringify(msgj));
+		// logEmitter(io, JSON.stringify(msgj));
 	    res.end("coopevents.res: " + msg);
       },
 
@@ -202,7 +204,7 @@ module.exports = function(io) {
 	   process.stdout.on('data', function(data){
 	        var msg = `${data}`;
 		console.log("updateio: argument: " + msg);
-		logEmitter(io, "updateio: argument: " + msg);
+		// logEmitter(io, "updateio: argument: " + msg);
 		res.end("updateio argument: " + msg);		
 	   }); //process.stdout.on
 	
