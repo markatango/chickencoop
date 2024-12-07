@@ -46,7 +46,8 @@ module.exports = function(io, msg){
 				} else {
 					let res = []
 					messages.forEach((message) => {
-						res.push(message["created"] + ":" + message["message"] + '\n')
+						let d = new Date(message["created"])
+						res.push(d.toLocaleString() + ":  " + message["message"] + '\n')
 					})
 					io.emit('logmessage', res)
 				}
