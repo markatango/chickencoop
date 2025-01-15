@@ -36,7 +36,9 @@ module.exports = function(io, msg){
 	lm.message = msg;
 	lm.save(function(err){
 		if(err){
-		console.log("Error saving log message", lm.message);
+			let emsg = getErrorMessage(err)
+			console.log("Error saving log message", lm.message);
+			console.log(emsg);
 		} else {
 			LogMessage.find({},{created:1, message:1, _id:0}).sort({created:-1}).limit(20).exec(function(err, messages){
 				if(err){
@@ -44,13 +46,6 @@ module.exports = function(io, msg){
 					 console.log(errmsg)
 					// io.emit('logmessage', errmsg + "\n");
 				} else {
-					// let res = []
-					// messages.forEach((message) => {
-					// 	let d = new Date(message["created"])
-					// 	res.push(d.toLocaleString('en-US') + ":  " + message["message"] + '\n')
-					// 	// res.push(d.toLocaleString('en-US', { timeZone: 'UTC' }) + ":  " + message["message"] + '\n')
-					// })
-					// io.emit('logmessage', res)
 					let text = '';
 					messages.forEach((message) => {
 						let d = new Date(message["created"])
