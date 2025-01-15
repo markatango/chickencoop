@@ -3,6 +3,7 @@ let lastDir = null;
 const limit = 50; // Number of documents to fetch at a time
 const documentArea = document.getElementById('logmessage');
 
+
 // Function to fetch documents from the server
 async function fetchDocuments() {
     const response = await fetch(`/documents?offset=${offset}&limit=${limit}`);
@@ -14,6 +15,7 @@ async function fetchDocuments() {
 async function loadDocuments(bottom) {
     
     if (bottom){ // hit bottom of box
+        console.log("Hit bottom of box")
         if (lastDir === "up"){
             lastDir = "down"
             offset += limit
@@ -21,13 +23,14 @@ async function loadDocuments(bottom) {
         const documents = await fetchDocuments();
         if (documents.length > 0) {
             documents.forEach(doc => {
-                documentArea.value += doc.message + '\n'; // Assuming each doc has a content field
+                documentArea.value += new Date(doc.created).toLocaleDateString() + " " + doc.message + '\n'; // Assuming each doc has a content field
             });
             offset += documents.length; // Update offset for next fetch
             
         }
  
     } else { //hit top of box
+        console.log("Hit top of box")
         if (lastDir === "down"){
             lastDir = "up"
             offset -= limit
@@ -38,7 +41,9 @@ async function loadDocuments(bottom) {
         const documents = await fetchDocuments();
         if (documents.length > 0) {
             documents.forEach(doc => {
-                documentArea.value += doc.message + '\n'; // Assuming each doc has a content field
+                let d = new Date(doc.created)
+                documentArea.value += d.toLocaleString("en-US")+ " " + doc.message + '\n'; // Assuming each doc has a content field
+                // documentArea.value += doc.created + " " + doc.message + '\n'; // Assuming each doc has a content field
             });
             offset -= documents.length; // Update offset for next fetch
             if (offset <= 0){

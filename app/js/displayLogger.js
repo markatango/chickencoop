@@ -44,12 +44,19 @@ module.exports = function(io, msg){
 					 console.log(errmsg)
 					// io.emit('logmessage', errmsg + "\n");
 				} else {
-					let res = []
+					// let res = []
+					// messages.forEach((message) => {
+					// 	let d = new Date(message["created"])
+					// 	res.push(d.toLocaleString('en-US') + ":  " + message["message"] + '\n')
+					// 	// res.push(d.toLocaleString('en-US', { timeZone: 'UTC' }) + ":  " + message["message"] + '\n')
+					// })
+					// io.emit('logmessage', res)
+					let text = '';
 					messages.forEach((message) => {
 						let d = new Date(message["created"])
-						res.push(d.toLocaleString() + ":  " + message["message"] + '\n')
+						text += d.toLocaleString('en-US') + ":  " + message["message"] + '\n'
 					})
-					io.emit('logmessage', res)
+					io.emit('logmessage', text)
 				}
 			});
 

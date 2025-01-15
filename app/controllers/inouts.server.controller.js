@@ -71,7 +71,7 @@ module.exports = function(io) {
 	    	inout.dni_state = switchstate["dni_state"];
 	    	inout.uplim_state = switchstate["uplim_state"];
 	    	inout.dnlim_state = switchstate["dnlim_state"];
-
+ 
           	inout.save(function(err){
 	        	if(err){
 					console.log(getErrorMessage(err));

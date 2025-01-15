@@ -24,7 +24,12 @@ const getErrorMessage = function(err){
 };
 
 const timeStringToDate = function(timeString){
-	return "1970-01-01 " + timeString + ":00";
+	let d = new Date()
+	let y = d.getFullYear()
+	let m = d.getMonth() + 1
+	let dd = d.getDate()
+	let fullDate = `${y}-${m}-${dd}`
+	return `${fullDate} ${timeString}:00`;
 };
 
 
