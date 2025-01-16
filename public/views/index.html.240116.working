@@ -80,6 +80,115 @@
 
   <body>
 
+    <!-- Begin page content -->
+   <!-- <div class="container">
+		<div class="row">
+			<div class="col-md-12 well">
+				<h1 style="text-align: center;">Rodighiero Chicken Coop Control System</h1>
+			</div>
+		</div>
+      	<div class="row">
+		<div class="col-md-12"> -->
+			<!-- <div id="doorsandlights" class="col-md-4"> -->
+				<!-- <div class="row">
+					<div class="col-md-12">
+              					<h3 style="text-align: center;">Doors and Lights</h3>
+	                                        <h4 style="text-align: center;">Chicken coop time</h4>
+						<h1 style="text-align: center;" id='clock'>CLOCK</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h1 id="doorStateMsg" style="text-align: center;color: red;" id='openInd'>Door Status</h1>
+						
+					</div>
+					<div class="well">
+						<h4 style="text-align: center;" >Door Operation Time</h4>
+						<h1 id="doorOpTime" style="text-align: center;color: red;" >Last door operation time</h1>
+					</div> 
+			    </div> 
+				<div class="row">
+					<div class="col-md-12">
+						<h4 style="text-align: center;">Automatic Operation</h4>
+						     
+							
+							   <form id="timesform" class="form-horizontal">
+								<div class="form-group">
+									<div class="col-md-6">
+									   <label class="control-label" for "dooropentime">Door open</label> 
+									   <input type="time" size="25" name="startTime" id="dooropentime" placeholder="Set time">
+								        </div>
+									<div class="col-md-6">
+                                                                           <label class="control-label" for "doorclosetime">Door close</label>
+									   <input type="time" size="25" name="endTime" id="doorclosetime" placeholder="Set time">
+									</div>								
+								</div>
+								<div class="form-group">
+								   <div class="col-md-offset-2 col-md-8">
+								     <button id="timesubmit" name="times" type="submit" class="btn btn-primary">Set time</button>
+								   </div>
+								</div>
+						          </form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h4 style="text-align: center;">Manual Operation</h4>
+							<div class="row">
+								
+								<div class="col-md-12">
+									<h4>Door Action</h4>
+									<input type="button" value="Open" id="open">
+									<input type="button" value="Close" id="close">	
+								</div>			
+								
+								<div class="col-md-8">
+						
+
+					<div class="col-sm-2"></div>
+					<div class="col-sm-4"><span style="text-align: center">Limits</span></div>
+					<div class="col-sm-6"><span style="text-align: center">Switches</span></div>
+
+					<div class="col-sm-2"></div>
+					<div class="col-sm-2"><span style="text-align: center">Up</span></div>
+					<div class="col-sm-2"><span>Down</span></div>
+					<div class="col-sm-2"><span style="text-align: center">   Up</span></div>
+					<div class="col-sm-2"><span>Stop</span></div>
+					<div class="col-sm-2"><span>Down</span></div>
+					<hr />
+					<div class="col-sm-2"></div>
+					<div class="col-sm-2"><span class="dot" id="ULS"><span class="dot-inner"></span></div>
+					<div class="col-sm-2"><span class="dot" id="LLS"><span class="dot-inner"></span></div>
+					<div class="col-sm-2"><span class="dot" id="UPS"><span class="dot-inner"></span></div>
+					<div class="col-sm-2"><span class="dot" id="STS"><span class="dot-inner"></span></div>
+					<div class="col-sm-2"><span class="dot" id="DNS"><span class="dot-inner"></span></div>
+					
+					<div class="col-sm-6"></div>
+					<div class="col-sm-6"><span style="text-align: center">Inputs to Door Controller</span></div>
+
+					<div class="col-sm-6"></div>
+					<div class="col-sm-2"><span style="text-align: center">   Up</span></div>
+					<div class="col-sm-2"><span>Stop</span></div>
+					<div class="col-sm-2"><span>Down</span></div>
+					<hr />
+					<div class="col-sm-6"></div>
+					<div class="col-sm-2"><span class="dot" id="UPI"><span class="dot-inner"></span></div>
+					<div class="col-sm-2"><span class="dot" id="STI"><span class="dot-inner"></span></div>
+					<div class="col-sm-2"><span class="dot" id="DNI"><span class="dot-inner"></span><</div>
+					
+								</div> 
+							</div> 
+							<div class="row"></div>
+					</div> 
+				</div> 
+				
+			
+	    	</div>
+	</div>
+    </div> -->
+
+
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 well">
@@ -184,6 +293,16 @@
 
 
 
+
+
+
+
+	
+
+
+    
+
+
     <!-- Bootstrap core JavaScript  ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
@@ -206,6 +325,9 @@
     <script src="js/timesChanged.js" type="text/javascript"></script>
 	<script src="js/infiniteLog.js" type="text/javascript"></script>
    
+	
+
+	
 	
   </body>
 </html>
