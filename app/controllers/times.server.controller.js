@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Time = require('mongoose').model('Time');
 const doStrings = require('../js/doorOpStrings');
 var exec = require('child_process').exec; 
@@ -31,7 +32,6 @@ const timeStringToDate = function(timeString){
 	let fullDate = `${y}-${m}-${dd}`
 	return `${fullDate} ${timeString}:00`;
 };
-
 
 const _getMinutes = function(date){
 	var mins = date.getMinutes();
@@ -97,7 +97,11 @@ module.exports = function(io, cron) {
 				return next(err);
 			} else {
 			console.log("Res: saved time", time.startTime, time.endTime); 
-			logEmitter(io, "Saved time: open:" + `${time.startTime} + ", close: " +  ${time.endTime}`)
+			let displayStart = moment(time.startTime).format("h:m A")
+			let displayEnd = moment(time.endTime).format("h:m A")
+			// logEmitter(io, "Saved time: open: " + `${time.startTime}` + ", close: " +  `${time.endTime}`)
+			// logEmitter(io, "Saved time: open: " + `${starttime}` + ", close: " +  `${endtime}`)
+			logEmitter(io, "Saved time: open: " + `${displayStart}` + ", close: " +  `${displayEnd}`)
 				res.json(time);
 			}
 		});//save
