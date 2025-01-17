@@ -40,7 +40,7 @@ module.exports = function(io, msg){
 			console.log("Error saving log message", lm.message);
 			console.log(emsg);
 		} else {
-			LogMessage.find({},{created:1, message:1, _id:0}).sort({created:-1}).limit(20).exec(function(err, messages){
+			LogMessage.find({},{created:1, message:1, _id:0}).sort({created:-1}).limit(50).exec(function(err, messages){
 				if(err){
 					let errmsg = "LogMessage.find() failed to return a value. Check database."
 					 console.log(errmsg)

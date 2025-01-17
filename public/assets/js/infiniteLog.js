@@ -11,6 +11,12 @@ async function fetchDocuments() {
     return documents;
 }
 
+//Function to add create date and format log message
+function formatMessage(msg){
+    let res = new Date(msg.created).toLocaleString("en-US") + " " + msg.message + '\n'; // Assuming each msg has a content field
+    return res
+}
+
 // Function to load documents and append to textarea
 async function loadDocuments(bottom) {
     
@@ -23,10 +29,9 @@ async function loadDocuments(bottom) {
         const documents = await fetchDocuments();
         if (documents.length > 0) {
             documents.forEach(doc => {
-                documentArea.value += new Date(doc.created).toLocaleDateString() + " " + doc.message + '\n'; // Assuming each doc has a content field
+                documentArea.value += formatMessage(doc)
             });
             offset += documents.length; // Update offset for next fetch
-            
         }
  
     } else { //hit top of box
@@ -41,9 +46,7 @@ async function loadDocuments(bottom) {
         const documents = await fetchDocuments();
         if (documents.length > 0) {
             documents.forEach(doc => {
-                let d = new Date(doc.created)
-                documentArea.value += d.toLocaleString("en-US")+ " " + doc.message + '\n'; // Assuming each doc has a content field
-                // documentArea.value += doc.created + " " + doc.message + '\n'; // Assuming each doc has a content field
+                documentArea.value += formatMessage(doc)
             });
             offset -= documents.length; // Update offset for next fetch
             if (offset <= 0){
