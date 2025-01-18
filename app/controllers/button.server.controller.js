@@ -63,11 +63,13 @@ module.exports = function(io) {
 		process.stdout.on('data', function(data){
 			const msg = `Door open command: ${data.toString()}`;
 			console.log(msg);
+			logEmitter(io, msg);
 			resp += msg
 		});
 		process.stderr.on('data', function(data){
 			const msg = `Door open command error: ${data.toString()}`;
 			console.log(msg);
+			logEmitter(io, msg);
 			resp += msg
 		});
         res.send({"resp":resp})

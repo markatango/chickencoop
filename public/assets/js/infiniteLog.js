@@ -33,27 +33,28 @@ async function loadDocuments(bottom) {
             });
             offset += documents.length; // Update offset for next fetch
         }
- 
-    } else { //hit top of box
-        console.log("Hit top of box")
-        if (lastDir === "down"){
-            lastDir = "up"
-            offset -= limit
-            if (offset < 0){
-                offset = 0
-            }
-        }
-        const documents = await fetchDocuments();
-        if (documents.length > 0) {
-            documents.forEach(doc => {
-                documentArea.value += formatMessage(doc)
-            });
-            offset -= documents.length; // Update offset for next fetch
-            if (offset <= 0){
-                offset = 0
-            }
-        }
     }
+ 
+    // } else { //hit top of box
+    //     console.log("Hit top of box")
+    //     if (lastDir === "down"){
+    //         lastDir = "up"
+    //         offset -= limit
+    //         if (offset < 0){
+    //             offset = 0
+    //         }
+    //     }
+    //     const documents = await fetchDocuments();
+    //     if (documents.length > 0) {
+    //         documents.forEach(doc => {
+    //             documentArea.value += formatMessage(doc)
+    //         });
+    //         offset -= documents.length; // Update offset for next fetch
+    //         if (offset <= 0){
+    //             offset = 0
+    //         }
+    //     }
+    // }
     console.log(offset)
 }
 

@@ -47,6 +47,8 @@ module.exports = function(io, msg){
 					// io.emit('logmessage', errmsg + "\n");
 				} else {
 					let text = '';
+					io.emit('logmessage', text) // clear text area
+					// fill with last messages
 					messages.forEach((message) => {
 						let d = new Date(message["created"])
 						text += d.toLocaleString('en-US') + ":  " + message["message"] + '\n'
